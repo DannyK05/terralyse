@@ -95,8 +95,8 @@ export default function WindSpeedGraph() {
   };
 
   return (
-    <>
+    <div className="bg-terra-white p-2">
       <Line data={chartData} options={options} />
-    </>
+    </div>
   );
 }

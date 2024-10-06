@@ -20,20 +20,40 @@ export default function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
-      <div>
-        <section>
+      <div className="grid lg:grid-cols-2 gap-2">
+        <section className="bg-terra-bg p-4 rounded-lg">
+          <h1 className="text-terra-white">Wind Speed</h1>
+          <p>
+            Wind speed plays a vtal role in pollination and soil erosion and
+            irrigation efficiency
+          </p>
           <WindSpeedGraph />
         </section>
-        <section>
+        <section className=" bg-terra-bg p-4 rounded-lg">
+          <h1 className="text-terra-white">Soil Skin Temperature</h1>
+          <p>
+            {" "}
+            It plays a role in seed germination, heat stress in crops and soil
+            microbial activity
+          </p>
           <SoilTempGraph />
         </section>
-        <section>
+        <section className="bg-terra-bg p-4 rounded-lg">
+          <h1 className="text-terra-white">Humidity and Precipation</h1>
+          <p>
+            Humidity and Precipation plays a vital role in prediciting rainfall,
+            plant growth and soil moisture retention
+          </p>
           <HumidityGraph />
         </section>
-        <section>
+        <section className="bg-terra-bg p-4 rounded-lg">
+          <h1 className="text-terra-white">Surface & Root Soil Wetness</h1>
+          <p>Soil Wetness helps us plant growth and water absorption,</p>
           <SoilWetnessGraph />
         </section>
-        <section></section>
+        <section className=" h-[40vh] bg-terra-bg p-4 rounded-lg">
+          <h1 className="text-terra-white">Wind Speed</h1>
+        </section>
       </div>
     </div>
   );

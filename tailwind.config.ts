@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
+    "./src/modules/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,7 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         "terra-black": "var(--background)",
-        "terra-white": "var(--foreground)",
+        "terra-white": "#ffffff",
         "terra-accent": "var(--light-brown)",
         "terra-bg": "var(--dark-brown)",
       },
