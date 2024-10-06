@@ -1,7 +1,5 @@
-export default function Map() {
-  return (
-    <section>
-      <h1>Map</h1>
-    </section>
-  );
+import Map from "@/modules/map";
+
+export default function Page() {
+  return <Map />;
 }
