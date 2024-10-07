@@ -32,9 +32,9 @@ export default function WindSpeedGraph() {
 
   windSpeed.forEach((speed) => {
     years.push(speed.YEAR);
-    speed.LAT === latitude &&
-      speed.LON === longitude &&
+    if (speed.LAT === latitude && speed.LON === longitude) {
       windSpeedData.push(speed);
+    }
   });
 
   const getRandomColor = () => {

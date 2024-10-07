@@ -32,9 +32,9 @@ export default function SoilTempGraph() {
 
   soilTemp.forEach((speed) => {
     years.push(speed.YEAR);
-    speed.LAT === latitude &&
-      speed.LON === longitude &&
+    if (speed.LAT === latitude && speed.LON === longitude) {
       soilTempData.push(speed);
+    }
   });
 
   const getRandomColor = () => {

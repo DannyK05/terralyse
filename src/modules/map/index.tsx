@@ -1,7 +1,6 @@
 "use client";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import humidity from "../../utilities/data/humidity.json";
 import soil_temp from "../../utilities/data/soil_temp.json";
 import soil_wetness from "../../utilities/data/soil_wetness.json";
 import wind_speed from "../../utilities/data/wind_speed.json";
