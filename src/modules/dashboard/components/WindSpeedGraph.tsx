@@ -27,8 +27,8 @@ export default function WindSpeedGraph() {
   const windSpeed: TWindSpeed = data;
   const windSpeedData: TWindSpeed = []; //Wind speed for the giving location over the years
   const years: number[] = [];
-  let latitude = 10.25;
-  let longitude = 10.25;
+  const latitude = 10.25;
+  const longitude = 10.25;
 
   windSpeed.forEach((speed) => {
     years.push(speed.YEAR);

@@ -27,9 +27,9 @@ export default function SoilWetnessGraph() {
   const soilWetness: TSoilWetness = data;
   const soilWetnessData: TSoilWetness = []; //Wind speed for the giving location over the years
   const years: number[] = [];
-  let latitude = 10.25;
-  let longitude = 10.25;
-  let param = "topSoil";
+  const latitude = 10.25;
+  const longitude = 10.25;
+  const param = "topSoil";
 
   soilWetness.forEach((speed) => {
     years.push(speed.YEAR);

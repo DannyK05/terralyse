@@ -28,9 +28,9 @@ export default function HumidityGraph() {
   const humidity: THumidity = data;
   const humidityData: THumidity = []; //Wind speed for the giving location over the years
   const years: number[] = [];
-  let latitude = 10.25;
-  let longitude = 10.25;
-  let param = "specificHumidity";
+  const latitude = 10.25;
+  const longitude = 10.25;
+  const param = "specificHumidity";
 
   humidity.forEach((speed) => {
     years.push(speed.YEAR);

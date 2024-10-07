@@ -13,7 +13,7 @@ const config: Config = {
         "terra-black": "var(--background)",
         "terra-white": "#ffffff",
         "terra-accent": "var(--light-brown)",
-        "terra-bg": "var(--dark-brown)",
+        terra: "var(--dark-brown)",
       },
     },
   },

@@ -5,6 +5,7 @@ import humidity from "../../utilities/data/humidity.json";
 import soil_temp from "../../utilities/data/soil_temp.json";
 import soil_wetness from "../../utilities/data/soil_wetness.json";
 import wind_speed from "../../utilities/data/wind_speed.json";
+import AppLayout from "@/layout/layout";
 export default function Map() {
   const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const aiKey = process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY;
@@ -14,7 +15,7 @@ export default function Map() {
   });
 
   const prompt = `Using these summarized data, return a JSON of farming feasibility percentage based on these conditions: 
-Soil Temperature: ${JSON.stringify(soil_temp.slice(0, 10))}, 
+Soil Temperature: ${JSON.stringify(soil_temp.slice(0, 10))},
 Soil Wetness: ${JSON.stringify(soil_wetness.slice(0, 10))}, 
 Wind Speed: ${JSON.stringify(wind_speed.slice(0, 10))}.`;
   // const prompt = "List two types of flowers";
@@ -42,16 +43,22 @@ Wind Speed: ${JSON.stringify(wind_speed.slice(0, 10))}.`;
     );
   }
   return (
-    <section>
-      <h1>Map</h1>
-      <LoadScript googleMapsApiKey={mapKey}>
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
-          {/* Additional components like Markers or InfoWindows go here */}
-        </GoogleMap>
-      </LoadScript>
-      <button type="button" onClick={getResult}>
-        Get Result
-      </button>
-    </section>
+    <AppLayout>
+      <section>
+        <h1>Map</h1>
+        <LoadScript googleMapsApiKey={mapKey}>
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={10}
+          >
+            {/* Additional components like Markers or InfoWindows go here */}
+          </GoogleMap>
+        </LoadScript>
+        <button type="button" onClick={getResult}>
+          Get Result
+        </button>
+      </section>
+    </AppLayout>
   );
 }
