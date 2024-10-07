@@ -27,7 +27,7 @@ export default function AppLayout({
           </li>
         </ul>
       </nav>
-      <main>{children}</main>
+      <main className="w-full">{children}</main>
     </div>
   );
 }

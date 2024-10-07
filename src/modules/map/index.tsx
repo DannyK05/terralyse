@@ -32,7 +32,7 @@ Wind Speed: ${JSON.stringify(wind_speed.slice(0, 10))}.`;
   };
   const containerStyle = {
     width: "100%",
-    height: "400px",
+    height: "80%",
   };
 
   if (!mapKey) {
