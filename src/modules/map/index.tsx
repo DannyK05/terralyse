@@ -7,7 +7,9 @@ import wind_speed from "../../utilities/data/wind_speed.json";
 import AppLayout from "@/layout/layout";
 export default function Map() {
   const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const aiKey = process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY;
+  const aiKey: string = process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY
+    ? process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY
+    : "";
   const genAI = new GoogleGenerativeAI(aiKey);
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
