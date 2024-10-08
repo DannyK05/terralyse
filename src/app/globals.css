@@ -27,7 +27,15 @@ body {
   color: var(--foreground);
   background: #f5d7bb;
   font-family: "Playwrite", Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
 }
+
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
 h1 {
   font-family: "Earthis", Arial, Helvetica, sans-serif;
 }
