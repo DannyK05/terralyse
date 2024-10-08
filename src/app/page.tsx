@@ -36,7 +36,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => router.push("/dashboard")}
-              className=" border w-[45%] rounded-lg p-2 text-terra-white bg-terra-accent space-y-2 flex flex-col items-center"
+              className=" border w-[45%] rounded-lg p-2 fill-terra-accent-bg hover:fill-terra text-terra-white bg-terra-accent space-y-2 flex flex-col items-center"
             >
               <h1 className="text-3xl">Dashboard</h1>
               <p>
@@ -51,7 +51,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => router.push("/map")}
-              className="border w-[45%] rounded-lg p-2 text-terra-white bg-terra-accent space-y-2 flex flex-col items-center"
+              className="border w-[45%] rounded-lg p-2 fill-terra-accent-bg hover:fill-terra text-terra-white bg-terra-accent space-y-2 flex flex-col items-center"
             >
               <h1 className="text-3xl">Google Gemini Powered Map</h1>
               <p>
@@ -59,7 +59,7 @@ export default function Home() {
                 using 20 year NASA Power data. Observe the map with indications
                 from Gemini&apos;s result showing areas prone to disaster.
               </p>
-              <span className="w-[95%] px-4">
+              <span className="w-[95%] px-4 ">
                 <MapIcon />
               </span>
             </button>

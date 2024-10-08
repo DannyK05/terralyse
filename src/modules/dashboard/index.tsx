@@ -36,7 +36,7 @@ export default function Dashboard() {
   };
   const containerStyle = {
     width: "100%",
-    height: "200px",
+    height: "250px",
   };
 
   const handleLocationSelection = (e: google.maps.MapMouseEvent) => {
@@ -52,17 +52,17 @@ export default function Dashboard() {
   };
 
   return (
-    <AppLayout>
+    <AppLayout activePage="dashboard">
       <>
-        <div className=" bg-terra text-center p-4 mb-4">
-          <h1 className="text-terra-white text-3xl">
-            Northen Nigeria Soil Analysis Dashboard
+        <div className=" bg-terra text-center p-4 mb-4 shadow-lg">
+          <h1 className="text-terra-white  text-3xl">
+            Northen - Nigeria Analysis Dashboard
           </h1>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-x-2 gap-y-4">
-          <section className=" h-[45vh] bg-terra p-4 rounded-lg lg:col-span-2">
-            <h1 className="text-terra-white text-2xl">Map</h1>
+          <section className=" h-[46vh] bg-terra p-4 rounded-lg lg:col-span-2">
+            <h1 className="text-terra-white text-2xl">Map Selection</h1>
             <div>
               {mapKey && mapKey !== " " ? (
                 <LoadScript googleMapsApiKey={mapKey}>
@@ -85,65 +85,99 @@ export default function Dashboard() {
               )}
             </div>
           </section>
-          <section className="h-[74vh] bg-terra p-4 rounded-lg">
-            <h1 className="text-terra-white text-2xl h-[8%]">Wind Speed</h1>
-            <p className="text-terra-white h-[10%] mb-2">
-              Wind speed plays a vtal role in pollination and soil erosion and
-              irrigation efficiency
-            </p>
-            <div className="h-[80%]">
+          <section className="h-[82vh] bg-terra p-4 rounded-lg shadow-lg">
+            <div className="w-full h-[25%]">
+              <h1 className="text-terra-white text-2xl">Wind Speed</h1>
+              <p className="text-terra-white h- mb-2">
+                Wind speed plays a vtal role in pollination and soil erosion and
+                irrigation efficiency
+              </p>
+            </div>
+            <div className="h-[70%] mt-5">
               <WindSpeedGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
-          <section className="h-[74vh] bg-terra p-4 rounded-lg">
-            <h1 className="text-terra-white text-2xl h-[8%]">
-              Soil Skin Temperature
-            </h1>
-            <p className="text-terra-white h-[10%] mb-2">
-              {" "}
-              It plays a role in seed germination, heat stress in crops and soil
-              microbial activity
-            </p>
-            <div className="h-[80%]">
+          <section className="h-[82vh] bg-terra p-4 rounded-lg shadow-lg">
+            <div className="w-full h-[25%]">
+              <h1 className="text-terra-white text-2xl">
+                Soil Skin Temperature
+              </h1>
+              <p className="text-terra-white mb-2">
+                {" "}
+                It plays a role in seed germination, heat stress in crops and
+                soil microbial activity
+              </p>
+            </div>
+            <div className="h-[70%] mt-5">
               <SoilTempGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
-          <section className="h-[74vh] bg-terra p-4 rounded-lg">
-            <h1 className="text-terra-white text-2xl h-[8%]">
-              Humidity and Precipation
-            </h1>
-            <p className="text-terra-white h-[10%] mb-2">
-              Humidity and Precipation plays a vital role in prediciting
-              rainfall, plant growth and soil moisture retention
-            </p>
-            <div className="h-[80%]">
+          <section className="h-[82vh] bg-terra p-4 rounded-lg shadow-lg">
+            <div className="w-full h-[25%]">
+              <h1 className="text-terra-white text-2xl">
+                Humidity and Precipitation
+              </h1>
+              <p className="text-terra-white mb-2">
+                Humidity and Precipitation plays a vital role in prediciting
+                rainfall, plant growth and soil moisture retention
+              </p>
+
+              <div className="flex items-center space-x-2">
+                <span
+                  className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
+                  onClick={() => setWetnessParam("topSoil")}
+                >
+                  Specific Humidity
+                </span>
+                <span
+                  className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
+                  onClick={() => setWetnessParam("rootSoil")}
+                >
+                  Relative Humidity
+                </span>
+                <span
+                  className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
+                  onClick={() => setWetnessParam("topSoil")}
+                >
+                  Average Precipitation
+                </span>
+                <span
+                  className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
+                  onClick={() => setWetnessParam("rootSoil")}
+                >
+                  Sum Average Precipitation
+                </span>
+              </div>
+            </div>
+            <div className="h-[70%] mt-5">
               <HumidityGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
-          <section className="h-[74vh] bg-terra p-4 rounded-lg">
-            <div className="h-[18%]">
+          <section className="h-[82vh] bg-terra p-4 rounded-lg shadow-lg">
+            <div className="h-[25%]">
               <h1 className="text-terra-white text-2xl">
                 Surface & Root Soil Wetness
               </h1>
               <p className="text-terra-white mb-2">
-                Soil Wetness helps us plant growth and water absorption,
+                Soil Wetness helps in plant growth and water absorption and
+                could be a indication of constant rainfall
               </p>
-              <div className="flex items-center space-x-2 mb-8">
+              <div className="flex items-center space-x-2">
                 <span
-                  className="p-2 bg-terra-white rounded-lg"
+                  className="p-2 bg-terra-white rounded-lg text-sm cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
                   onClick={() => setWetnessParam("topSoil")}
                 >
                   Top Soil
                 </span>
                 <span
-                  className="p-2 bg-terra-white rounded-lg"
+                  className="p-2 bg-terra-white rounded-lg text-sm cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
                   onClick={() => setWetnessParam("rootSoil")}
                 >
                   Root Soil
                 </span>
               </div>
             </div>
-            <div className="h-[80%]">
+            <div className="h-[70%] mt-5">
               <SoilWetnessGraph
                 param={wetnessParam}
                 lat={mapLocation.lat}

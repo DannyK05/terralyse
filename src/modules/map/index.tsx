@@ -81,9 +81,13 @@ Wind Speed: ${JSON.stringify(windSpeed)}.`;
     );
   }
   return (
-    <AppLayout>
+    <AppLayout activePage="map">
       <section>
-        <h1>Map</h1>
+        <div className=" bg-terra text-center p-4 mb-4 shadow-lg">
+          <h1 className="text-terra-white  text-3xl">
+            Prediction Map integrated with Google Gemini 1.5
+          </h1>
+        </div>
         <LoadScript googleMapsApiKey={mapKey}>
           <GoogleMap
             mapContainerStyle={containerStyle}

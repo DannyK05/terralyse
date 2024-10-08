@@ -15,6 +15,7 @@ const config: Config = {
         "terra-white": "#ffffff",
         "terra-accent": "var(--light-brown)",
         terra: "var(--dark-brown)",
+        "terra-accent-bg": "var(--accent)",
       },
     },
   },

@@ -7,6 +7,7 @@
   --foreground: #171717;
   --light-brown: #a38061;
   --dark-brown: #8b5220;
+  --accent: #f5d7bb;
 }
 @font-face {
   font-family: "Earthis";
@@ -40,6 +41,15 @@ button:hover {
 }
 button:active {
   box-shadow: 2px 2px 2px 2px rgba(34, 33, 33, 0.692);
+}
+.my_github_link {
+  font-family: "Earthis";
+  text-decoration: none;
+  color: #38200a;
+  font-size: 20px;
+}
+.my_github_link:hover {
+  text-decoration: underline;
 }
 * {
   box-sizing: inherit;
