@@ -33,7 +33,7 @@ export default function SoilTempGraph({
   const soilTemp: TSoilTemp = data;
   const soilTempData: TSoilTemp = []; //Wind speed for the giving location over the years
   const years: number[] = [];
-  const latitude = lng;
+  const latitude = lat;
   const longitude = lng;
 
   soilTemp.forEach((speed) => {
