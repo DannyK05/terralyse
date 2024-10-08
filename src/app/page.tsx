@@ -55,9 +55,9 @@ export default function Home() {
             >
               <h1 className="text-3xl">Google Gemini Powered Map</h1>
               <p>
-                Discover automated disaster analysis from Google's Gemini using
-                20 year NASA Power data. Observe the map with indications from
-                Gemini's result showing areas prone to disaster.
+                Discover automated disaster analysis from Google&apos;s Gemini
+                using 20 year NASA Power data. Observe the map with indications
+                from Gemini&apos;s result showing areas prone to disaster.
               </p>
               <span className="w-[95%] px-4">
                 <MapIcon />
