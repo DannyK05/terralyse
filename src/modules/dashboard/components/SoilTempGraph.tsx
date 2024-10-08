@@ -5,7 +5,7 @@ import { CategoryScale } from "chart.js";
 import { months } from "..";
 import { Line } from "react-chartjs-2";
 
-type TSoilTemp = {
+export type TSoilTemp = {
   YEAR: number;
   LAT: number;
   LON: number;
@@ -23,12 +23,18 @@ type TSoilTemp = {
   DEC: number;
   ANN: number;
 }[];
-export default function SoilTempGraph() {
+export default function SoilTempGraph({
+  lat = 10.25,
+  lng = 10.25,
+}: {
+  lat: number;
+  lng: number;
+}) {
   const soilTemp: TSoilTemp = data;
   const soilTempData: TSoilTemp = []; //Wind speed for the giving location over the years
   const years: number[] = [];
-  const latitude = 10.25;
-  const longitude = 10.25;
+  const latitude = lng;
+  const longitude = lng;
 
   soilTemp.forEach((speed) => {
     years.push(speed.YEAR);
@@ -92,10 +98,12 @@ export default function SoilTempGraph() {
         },
       },
     },
+    maintainAspectRatio: false,
+    responsive: true,
   };
 
   return (
-    <div className="bg-terra-white p-2">
+    <div className="bg-terra-white p-2 h-full">
       <Line data={chartData} options={options} />
     </div>
   );

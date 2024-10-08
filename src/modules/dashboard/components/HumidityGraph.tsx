@@ -4,7 +4,7 @@ import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { months } from "..";
 import { Line } from "react-chartjs-2";
-type THumidity = {
+export type THumidity = {
   PARAMETER: string;
   YEAR: number;
   LAT: number;
@@ -24,12 +24,18 @@ type THumidity = {
   ANN: number;
 }[];
 
-export default function HumidityGraph() {
+export default function HumidityGraph({
+  lat = 10.25,
+  lng = 10.25,
+}: {
+  lat: number;
+  lng: number;
+}) {
   const humidity: THumidity = data;
   const humidityData: THumidity = []; //Wind speed for the giving location over the years
   const years: number[] = [];
-  const latitude = 10.25;
-  const longitude = 10.25;
+  const latitude = lat;
+  const longitude = lng;
   const param = "specificHumidity";
 
   humidity.forEach((speed) => {
@@ -98,10 +104,12 @@ export default function HumidityGraph() {
         },
       },
     },
+    maintainAspectRatio: false,
+    responsive: true,
   };
 
   return (
-    <div className="bg-terra-white p-2">
+    <div className="bg-terra-white p-2 h-full">
       <Line data={chartData} options={options} />
     </div>
   );

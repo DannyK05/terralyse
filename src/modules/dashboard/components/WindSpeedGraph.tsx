@@ -5,7 +5,7 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { months } from "..";
 
-type TWindSpeed = {
+export type TWindSpeed = {
   YEAR: number;
   LAT: number;
   LON: number;
@@ -23,12 +23,18 @@ type TWindSpeed = {
   DEC: number;
 }[];
 
-export default function WindSpeedGraph() {
+export default function WindSpeedGraph({
+  lat = 10.25,
+  lng = 10.25,
+}: {
+  lat: number;
+  lng: number;
+}) {
   const windSpeed: TWindSpeed = data;
   const windSpeedData: TWindSpeed = []; //Wind speed for the giving location over the years
   const years: number[] = [];
-  const latitude = 10.25;
-  const longitude = 10.25;
+  const latitude = lat;
+  const longitude = lng;
 
   windSpeed.forEach((speed) => {
     years.push(speed.YEAR);
@@ -92,10 +98,12 @@ export default function WindSpeedGraph() {
         },
       },
     },
+    maintainAspectRatio: false,
+    responsive: true,
   };
 
   return (
-    <div className="bg-terra-white p-2">
+    <div className="bg-terra-white p-2 h-full">
       <Line data={chartData} options={options} />
     </div>
   );

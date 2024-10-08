@@ -4,7 +4,7 @@ import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { months } from "..";
 import { Line } from "react-chartjs-2";
-type TSoilWetness = {
+export type TSoilWetness = {
   PARAMETER: string;
   YEAR: number;
   LAT: number;
@@ -23,13 +23,20 @@ type TSoilWetness = {
   DEC: number;
   ANN: number;
 }[];
-export default function SoilWetnessGraph() {
+export default function SoilWetnessGraph({
+  lat = 10.25,
+  lng = 10.25,
+  param = "topSoil",
+}: {
+  lat: number;
+  lng: number;
+  param?: "topSoil" | "rootSoil";
+}) {
   const soilWetness: TSoilWetness = data;
   const soilWetnessData: TSoilWetness = []; //Wind speed for the giving location over the years
   const years: number[] = [];
-  const latitude = 10.25;
-  const longitude = 10.25;
-  const param = "topSoil";
+  const latitude = lat;
+  const longitude = lng;
 
   soilWetness.forEach((speed) => {
     years.push(speed.YEAR);
@@ -87,7 +94,11 @@ export default function SoilWetnessGraph() {
         beginAtZero: true,
         title: {
           display: true,
-          text: `${"Surface Soil Wetness"}`, // Y-axis label
+          text: `${
+            param === "topSoil"
+              ? "Surface Soil Wetness"
+              : "Root Soil Wetness (10m)"
+          }`, // Y-axis label
         },
       },
       x: {
@@ -97,10 +108,12 @@ export default function SoilWetnessGraph() {
         },
       },
     },
+    maintainAspectRatio: false,
+    responsive: true,
   };
 
   return (
-    <div className="bg-terra-white p-2">
+    <div className="bg-terra-white p-2 h-full">
       <Line data={chartData} options={options} />
     </div>
   );
