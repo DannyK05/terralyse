@@ -125,25 +125,25 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2">
                 <span
                   className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
-                  onClick={() => setWetnessParam("topSoil")}
+                  onClick={() => console.log("In development")}
                 >
                   Specific Humidity
                 </span>
                 <span
                   className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
-                  onClick={() => setWetnessParam("rootSoil")}
+                  onClick={() => console.log("In development")}
                 >
                   Relative Humidity
                 </span>
                 <span
                   className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
-                  onClick={() => setWetnessParam("topSoil")}
+                  onClick={() => console.log("In development")}
                 >
                   Average Precipitation
                 </span>
                 <span
                   className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
-                  onClick={() => setWetnessParam("rootSoil")}
+                  onClick={() => console.log("In development")}
                 >
                   Sum Average Precipitation
                 </span>
