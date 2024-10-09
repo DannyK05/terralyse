@@ -63,7 +63,7 @@ export default function Dashboard() {
         <div className="grid lg:grid-cols-2 gap-x-2 gap-y-4">
           <section className=" h-[46vh] bg-terra p-4 rounded-lg lg:col-span-2">
             <h1 className="text-terra-white text-2xl">Map Selection</h1>
-            <div>
+            <div className="w-[80%]">
               {mapKey && mapKey !== " " ? (
                 <LoadScript googleMapsApiKey={mapKey}>
                   <GoogleMap
@@ -149,7 +149,7 @@ export default function Dashboard() {
                 </span>
               </div>
             </div>
-            <div className="h-[70%] mt-5">
+            <div className="h-[70%] mt-6">
               <HumidityGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
