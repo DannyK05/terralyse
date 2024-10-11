@@ -51,9 +51,7 @@ export default function SoilWetnessGraph({
   });
 
   const getYearColor = (YEAR: number) => {
-    const yearColor = colors.find((color) => {
-      color.year === YEAR;
-    });
+    const yearColor = colors.find((color) => color.year === YEAR);
     return yearColor?.color;
   };
 

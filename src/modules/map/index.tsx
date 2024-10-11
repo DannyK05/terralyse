@@ -33,7 +33,8 @@ export default function Map() {
   soil_wetness.find((data) => {
     if (
       (data.PARAMETER === "rootSoil" && data.YEAR === 2020) ||
-      data.YEAR === 2021
+      data.YEAR === 2021 ||
+      data.PARAMETER === "topSoil"
     ) {
       soilWetness.push(data);
     }

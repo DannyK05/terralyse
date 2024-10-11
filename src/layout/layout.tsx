@@ -10,7 +10,7 @@ export default function AppLayout({
   const router = useRouter();
   return (
     <div className="flex h-full items-start">
-      <nav className="bg-terra-accent w-1/5 flex fixed lg:flex-col items-center h-[100vh] py-4 pl-4">
+      <nav className="hidden lg:block bg-terra-accent w-1/5 flex fixed lg:flex-col items-center h-[100vh] py-4 pl-4">
         <h1
           onClick={() => router.push("/")}
           className="text-6xl text-white cursor-pointer mb-6 mr-4 hover:text-terra-accent-bg"
