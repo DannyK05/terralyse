@@ -4,6 +4,7 @@ import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { months } from "..";
 import { Line } from "react-chartjs-2";
+import { colors } from "../../../utilities/data/chart_colors";
 
 export type TSoilTemp = {
   YEAR: number;
@@ -43,13 +44,11 @@ export default function SoilTempGraph({
     }
   });
 
-  const getRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  const getYearColor = (YEAR: number) => {
+    const yearColor = colors.find((color) => {
+      color.year === YEAR;
+    });
+    return yearColor?.color;
   };
 
   Chart.register(CategoryScale);
@@ -72,9 +71,10 @@ export default function SoilTempGraph({
         DEC,
       }) => {
         return {
-          label: `Year ${YEAR}`,
+          label: `${YEAR}`,
           data: [JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC],
-          borderColor: getRandomColor(),
+          borderColor: getYearColor(YEAR),
+          backgroundColor: getYearColor(YEAR),
           borderWidth: 3,
           fill: false,
         };

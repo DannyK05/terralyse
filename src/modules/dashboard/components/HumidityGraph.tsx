@@ -4,6 +4,7 @@ import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { months } from "..";
 import { Line } from "react-chartjs-2";
+import { colors } from "../../../utilities/data/chart_colors";
 export type THumidity = {
   PARAMETER: string;
   YEAR: number;
@@ -27,16 +28,21 @@ export type THumidity = {
 export default function HumidityGraph({
   lat = 10.25,
   lng = 10.25,
+  param = "specificHumidity",
 }: {
   lat: number;
   lng: number;
+  param:
+    | "specificHumidity"
+    | "relativeHumidity"
+    | "averagePrecipitation"
+    | "sumAveragePrecipitation";
 }) {
   const humidity: THumidity = data;
   const humidityData: THumidity = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
   const longitude = lng;
-  const param = "specificHumidity";
 
   humidity.forEach((speed) => {
     years.push(speed.YEAR);
@@ -49,13 +55,27 @@ export default function HumidityGraph({
     }
   });
 
-  const getRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
+  const getYAxisName = () => {
+    switch (param) {
+      case "specificHumidity":
+        return "Specific Humidity";
+        break;
+      case "relativeHumidity":
+        return "Relative Humidity";
+      case "averagePrecipitation":
+        return "Average Precipitation";
+      case "sumAveragePrecipitation":
+        return "Sum Average Precipitation";
+      default:
+        break;
     }
-    return color;
+  };
+
+  const getYearColor = (YEAR: number) => {
+    const yearColor = colors.find((color) => {
+      color.year === YEAR;
+    });
+    return yearColor?.color;
   };
 
   Chart.register(CategoryScale);
@@ -78,9 +98,10 @@ export default function HumidityGraph({
         DEC,
       }) => {
         return {
-          label: `Year ${YEAR}`,
+          label: `${YEAR}`,
           data: [JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC],
-          borderColor: getRandomColor(),
+          borderColor: getYearColor(YEAR),
+          backgroundColor: getYearColor(YEAR),
           borderWidth: 3,
           fill: false,
         };
@@ -94,7 +115,7 @@ export default function HumidityGraph({
         beginAtZero: true,
         title: {
           display: true,
-          text: "Specific Humidity (m/s)", // Y-axis label
+          text: getYAxisName(), // Y-axis label
         },
       },
       x: {

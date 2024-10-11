@@ -29,6 +29,13 @@ export default function Dashboard() {
   const [wetnessParam, setWetnessParam] = useState<"topSoil" | "rootSoil">(
     "topSoil"
   );
+  const [humidityParam, setHumidityParam] = useState<
+    | "specificHumidity"
+    | "relativeHumidity"
+    | "averagePrecipitation"
+    | "sumAveragePrecipitation"
+  >("specificHumidity");
+
   const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const center = {
     lat: mapLocation.lat,
@@ -61,9 +68,9 @@ export default function Dashboard() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-x-2 gap-y-4">
-          <section className=" h-[46vh] bg-terra p-4 rounded-lg lg:col-span-2">
+          <section className=" h-[50vh] bg-terra w-full p-4 rounded-lg lg:col-span-2">
             <h1 className="text-terra-white text-2xl">Map Selection</h1>
-            <div className="w-[80%]">
+            <div className="w-full">
               {mapKey && mapKey !== " " ? (
                 <LoadScript googleMapsApiKey={mapKey}>
                   <GoogleMap
@@ -85,7 +92,7 @@ export default function Dashboard() {
               )}
             </div>
           </section>
-          <section className="h-[82vh] bg-terra p-4 rounded-lg shadow-lg">
+          <section className="h-[95vh] bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
               <h1 className="text-terra-white text-2xl">Wind Speed</h1>
               <p className="text-terra-white h- mb-2">
@@ -97,7 +104,7 @@ export default function Dashboard() {
               <WindSpeedGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
-          <section className="h-[82vh] bg-terra p-4 rounded-lg shadow-lg">
+          <section className="h-[95vh] bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
               <h1 className="text-terra-white text-2xl">
                 Soil Skin Temperature
@@ -112,8 +119,8 @@ export default function Dashboard() {
               <SoilTempGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
-          <section className="h-[82vh] bg-terra p-4 rounded-lg shadow-lg">
-            <div className="w-full h-[25%]">
+          <section className="h-[95vh] bg-terra p-4 rounded-lg shadow-lg">
+            <div className="w-full h-[20%]">
               <h1 className="text-terra-white text-2xl">
                 Humidity and Precipitation
               </h1>
@@ -124,36 +131,52 @@ export default function Dashboard() {
 
               <div className="flex items-center space-x-2">
                 <span
-                  className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
-                  onClick={() => console.log("In development")}
+                  className={`${
+                    humidityParam === "specificHumidity" &&
+                    "bg-terra-accent-bg text-terra font-bold"
+                  } p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  onClick={() => setHumidityParam("specificHumidity")}
                 >
                   Specific Humidity
                 </span>
                 <span
-                  className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
-                  onClick={() => console.log("In development")}
+                  className={`${
+                    humidityParam === "relativeHumidity" &&
+                    "bg-terra-accent-bg text-terra font-bold"
+                  } p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  onClick={() => setHumidityParam("relativeHumidity")}
                 >
                   Relative Humidity
                 </span>
                 <span
-                  className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
-                  onClick={() => console.log("In development")}
+                  className={`${
+                    humidityParam === "averagePrecipitation" &&
+                    "bg-terra-accent-bg text-terra font-bold"
+                  } p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  onClick={() => setHumidityParam("averagePrecipitation")}
                 >
                   Average Precipitation
                 </span>
                 <span
-                  className="p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
-                  onClick={() => console.log("In development")}
+                  className={`${
+                    humidityParam === "sumAveragePrecipitation" &&
+                    "bg-terra-accent-bg text-terra font-bold"
+                  } p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  onClick={() => setHumidityParam("sumAveragePrecipitation")}
                 >
                   Sum Average Precipitation
                 </span>
               </div>
             </div>
-            <div className="h-[70%] mt-6">
-              <HumidityGraph lat={mapLocation.lat} lng={mapLocation.lng} />
+            <div className="h-[70%] mt-10">
+              <HumidityGraph
+                param={humidityParam}
+                lat={mapLocation.lat}
+                lng={mapLocation.lng}
+              />
             </div>
           </section>
-          <section className="h-[82vh] bg-terra p-4 rounded-lg shadow-lg">
+          <section className="h-[95vh] bg-terra p-4 rounded-lg shadow-lg">
             <div className="h-[25%]">
               <h1 className="text-terra-white text-2xl">
                 Surface & Root Soil Wetness
@@ -164,13 +187,19 @@ export default function Dashboard() {
               </p>
               <div className="flex items-center space-x-2">
                 <span
-                  className="p-2 bg-terra-white rounded-lg text-sm cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
+                  className={`${
+                    wetnessParam === "topSoil" &&
+                    "bg-accent-terra-bg text-terra font-bold"
+                  } p-2 bg-terra-white rounded-lg text-sm cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
                   onClick={() => setWetnessParam("topSoil")}
                 >
                   Top Soil
                 </span>
                 <span
-                  className="p-2 bg-terra-white rounded-lg text-sm cursor-pointer hover:bg-terra-accent-bg hover:text-terra"
+                  className={`${
+                    wetnessParam === "rootSoil" &&
+                    "bg-accent-terra-bg text-terra font-bold"
+                  } p-2 bg-terra-white rounded-lg text-sm cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
                   onClick={() => setWetnessParam("rootSoil")}
                 >
                   Root Soil
