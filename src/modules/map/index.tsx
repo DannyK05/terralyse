@@ -21,41 +21,74 @@ export default function Map() {
   });
 
   const soilTemp: TSoilTemp = [];
-  const soilWetness: TSoilWetness = [];
+  const topSoilWetness: TSoilWetness = [];
   const windSpeed: TWindSpeed = [];
-  const Humidity: THumidity = [];
+  const specificHumidity: THumidity = [];
+  const rootSoilWetness: TSoilWetness = [];
+  const relativeHumidity: THumidity = [];
+  const averagePrecipitation: THumidity = [];
+  const sumAveragePrecipitation: THumidity = [];
 
   soil_temp.find((data) => {
     if (data.YEAR === 2020 || data.YEAR === 2021) {
       soilTemp.push(data);
     }
   });
+
   soil_wetness.find((data) => {
     if (
-      (data.PARAMETER === "rootSoil" && data.YEAR === 2020) ||
-      data.YEAR === 2021 ||
-      data.PARAMETER === "topSoil"
+      (data.PARAMETER === "topSoil" && data.YEAR === 2020) ||
+      (data.YEAR === 2021 && data.PARAMETER === "topSoil")
     ) {
-      soilWetness.push(data);
+      topSoilWetness.push(data);
+    }
+    if (
+      (data.PARAMETER === "rootSoil" && data.YEAR === 2020) ||
+      (data.YEAR === 2021 && data.PARAMETER === "rootSoil")
+    ) {
+      rootSoilWetness.push(data);
     }
   });
+
   wind_speed.find((data) => {
     if (data.YEAR === 2020 || data.YEAR === 2021) {
       windSpeed.push(data);
     }
   });
+
   humidity.find((data) => {
     if (
       (data.PARAMETER === "specificHumidity" && data.YEAR === 2020) ||
-      data.YEAR === 2021
+      (data.PARAMETER === "specificHumidity" && data.YEAR === 2021)
     ) {
-      Humidity.push(data);
+      specificHumidity.push(data);
+    }
+    if (
+      (data.PARAMETER === "relativeHumidity" && data.YEAR === 2020) ||
+      (data.PARAMETER === "relativeHumidity" && data.YEAR === 2021)
+    ) {
+      relativeHumidity.push(data);
+    }
+    if (
+      (data.PARAMETER === "averagePrecipitation" && data.YEAR === 2020) ||
+      (data.PARAMETER === "averagePrecipitation" && data.YEAR === 2021)
+    ) {
+      averagePrecipitation.push(data);
+    }
+    if (
+      (data.PARAMETER === "sumAveragePrecipitation" && data.YEAR === 2020) ||
+      (data.PARAMETER === "sumAveragePrecipitation" && data.YEAR === 2021)
+    ) {
+      sumAveragePrecipitation.push(data);
     }
   });
 
-  const prompt = `Using these summarized data, return a JSON of farming feasibility, drought feasibility and flooding feasibility percentage based on these conditions: 
+  const prompt = `Using these summarized data of the change in agricultural factors from 2020 to 2021 of northern nigeria, return a JSON of farming feasibility, drought feasibility and flooding feasibility percentage for each coordinate based on these conditions: 
 Soil Temperature: ${JSON.stringify(soilTemp)},
-Soil Wetness: ${JSON.stringify(soilWetness)}, 
+Top Soil Wetness: ${JSON.stringify(topSoilWetness)},
+Specific Humidity: ${JSON.stringify(specificHumidity)},
+Root Soil Wetness: ${JSON.stringify(rootSoilWetness)},
+Average Precipitation: ${JSON.stringify(averagePrecipitation)},
 Wind Speed: ${JSON.stringify(windSpeed)}.`;
   // const prompt = "List two types of flowers";
 
@@ -83,12 +116,19 @@ Wind Speed: ${JSON.stringify(windSpeed)}.`;
   }
   return (
     <AppLayout activePage="map">
-      <section>
-        <div className=" bg-terra text-center p-4 mb-4 shadow-lg">
+      <section className="flex flex-col items-center space-y-2 mb-[80px] ">
+        <div className="w-full bg-terra text-center p-4 mb-4 shadow-lg">
           <h1 className="text-terra-white  text-3xl">
             Prediction Map integrated with Google Gemini 1.5
           </h1>
         </div>
+        <button
+          className="p-2 w-[80%] rounded-lg bg-terra text-white active:bg-terra-accent-bg active:text-terra hover:text-terra hover:bg-terra-accent-bg"
+          type="button"
+          onClick={getResult}
+        >
+          Get Prediction
+        </button>
         <LoadScript googleMapsApiKey={mapKey}>
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -98,9 +138,6 @@ Wind Speed: ${JSON.stringify(windSpeed)}.`;
             {/* Additional components like Markers or InfoWindows go here */}
           </GoogleMap>
         </LoadScript>
-        <button type="button" onClick={getResult}>
-          Get Result
-        </button>
       </section>
     </AppLayout>
   );

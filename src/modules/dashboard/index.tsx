@@ -61,15 +61,17 @@ export default function Dashboard() {
   return (
     <AppLayout activePage="dashboard">
       <>
-        <div className=" bg-terra text-center p-4 mb-4 shadow-lg">
-          <h1 className="text-terra-white  text-3xl">
+        <div className=" bg-terra w-full lg:w-auto text-center p-4 mb-4 shadow-lg">
+          <h1 className="text-xl text-terra-white md:text-2xl lg:text-3xl">
             Northen - Nigeria Analysis Dashboard
           </h1>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-x-2 gap-y-4">
-          <section className=" h-[50vh] bg-terra w-full p-4 rounded-lg lg:col-span-2">
-            <h1 className="text-terra-white text-2xl">Map Selection</h1>
+        <div className="w-full grid lg:grid-cols-2 md:gap-x-2 lg:gap-x-2 gap-y-4">
+          <section className=" h-[50vh] bg-terra w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
+            <h1 className="text-terra-white text-xl md:text-2xl lg:text-2xl">
+              Map Selection
+            </h1>
             <div className="w-full">
               {mapKey && mapKey !== " " ? (
                 <LoadScript googleMapsApiKey={mapKey}>
@@ -92,9 +94,11 @@ export default function Dashboard() {
               )}
             </div>
           </section>
-          <section className="h-[95vh] bg-terra p-4 rounded-lg shadow-lg">
+          <section className="h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
-              <h1 className="text-terra-white text-2xl">Wind Speed</h1>
+              <h1 className="text-terra-white text-xl md:text-2xl lg:text-2xl">
+                Wind Speed
+              </h1>
               <p className="text-terra-white h- mb-2">
                 Wind speed plays a vtal role in pollination and soil erosion and
                 irrigation efficiency
@@ -104,9 +108,9 @@ export default function Dashboard() {
               <WindSpeedGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
-          <section className="h-[95vh] bg-terra p-4 rounded-lg shadow-lg">
+          <section className="h-[95vh] bg-terra w-full lg:w-full md:w-full p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
-              <h1 className="text-terra-white text-2xl">
+              <h1 className="text-terra-white text-xl md:text-2xl lg:text-2xl">
                 Soil Skin Temperature
               </h1>
               <p className="text-terra-white mb-2">
@@ -119,22 +123,22 @@ export default function Dashboard() {
               <SoilTempGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
-          <section className="h-[95vh] bg-terra p-4 rounded-lg shadow-lg">
+          <section className="h-[100vh] lg:h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[20%]">
-              <h1 className="text-terra-white text-2xl">
+              <h1 className="text-terra-white text-xl md:text-2xl lg:text-2xl">
                 Humidity and Precipitation
               </h1>
               <p className="text-terra-white mb-2">
-                Humidity and Precipitation plays a vital role in prediciting
-                rainfall, plant growth and soil moisture retention
+                They play a vital role in prediciting rainfall, plant growth and
+                soil moisture retention
               </p>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center space-y-1 space-x-2">
                 <span
                   className={`${
                     humidityParam === "specificHumidity" &&
                     "bg-terra-accent-bg text-terra font-bold"
-                  } p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  } w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
                   onClick={() => setHumidityParam("specificHumidity")}
                 >
                   Specific Humidity
@@ -143,7 +147,7 @@ export default function Dashboard() {
                   className={`${
                     humidityParam === "relativeHumidity" &&
                     "bg-terra-accent-bg text-terra font-bold"
-                  } p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
                   onClick={() => setHumidityParam("relativeHumidity")}
                 >
                   Relative Humidity
@@ -152,7 +156,7 @@ export default function Dashboard() {
                   className={`${
                     humidityParam === "averagePrecipitation" &&
                     "bg-terra-accent-bg text-terra font-bold"
-                  } p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
                   onClick={() => setHumidityParam("averagePrecipitation")}
                 >
                   Average Precipitation
@@ -161,14 +165,14 @@ export default function Dashboard() {
                   className={`${
                     humidityParam === "sumAveragePrecipitation" &&
                     "bg-terra-accent-bg text-terra font-bold"
-                  } p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
                   onClick={() => setHumidityParam("sumAveragePrecipitation")}
                 >
                   Sum Average Precipitation
                 </span>
               </div>
             </div>
-            <div className="h-[70%] mt-10">
+            <div className="h-[70%] mt-[60px]">
               <HumidityGraph
                 param={humidityParam}
                 lat={mapLocation.lat}
@@ -176,9 +180,9 @@ export default function Dashboard() {
               />
             </div>
           </section>
-          <section className="h-[95vh] bg-terra p-4 rounded-lg shadow-lg">
+          <section className="h-[95vh] w-full lg:w-full mb-[80px] lg:mb-auto md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="h-[25%]">
-              <h1 className="text-terra-white text-2xl">
+              <h1 className="text-terra-white text-xl md:text-2xl lg:text-2xl">
                 Surface & Root Soil Wetness
               </h1>
               <p className="text-terra-white mb-2">

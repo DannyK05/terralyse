@@ -10,25 +10,25 @@ export default function AppLayout({
   const router = useRouter();
   return (
     <div className="flex h-full items-start">
-      <nav className="hidden lg:block bg-terra-accent w-1/5 flex fixed lg:flex-col items-center h-[100vh] py-4 pl-4">
+      <nav className="z-10 bottom-0 left-0 h-[12vh] lg:top-0 w-[100vw] bg-terra-accent lg:w-1/5 flex fixed lg:flex-col items-center lg:h-[100vh] px-0 py-0 lg:pr-0 lg:p-4">
         <h1
           onClick={() => router.push("/")}
-          className="text-6xl text-white cursor-pointer mb-6 mr-4 hover:text-terra-accent-bg"
+          className="hidden lg:block text-6xl text-white cursor-pointer mb-6 mr-4 hover:text-terra-accent-bg"
         >
           Terralyse
         </h1>
-        <ul className="flex flex-col w-full pr-0 items-center justify-between h-[60%]">
+        <ul className="flex flex-row lg:flex-col w-full h-full py-0 lg:py-auto lg:pr-0 items-center justify-between lg:justify-normal lg:space-y-5 h-[60%]">
           <li
             onClick={() => router.push("/dashboard")}
             className={`${
               activePage === "dashboard" && "bg-terra-accent-bg text-terra"
-            } flex flex-col items-center space-y-4 p-4 pr-0 hover:fill-terra fill-terra-accent-bg  w-full cursor-pointer rounded-lg hover:bg-terra-accent-bg hover:text-terra text-xl text-terra-white`}
+            } flex flex-col-reverse lg:flex-col h-full lg:h-auto items-center lg:rounded-r-none justify-center space-y-4 p-2 py-0 lg:p-4 lg:pr-0 hover:fill-terra fill-terra-accent-bg  w-full cursor-pointer lg:rounded-lg hover:bg-terra-accent-bg hover:text-terra text-xl text-terra-white`}
           >
-            <p>Dashboard</p>
+            <p className="hidden lg:block">Dashboard</p>
             <span
               className={`${
                 activePage === "dashboard" && "fill-terra"
-              } w-[80px] `}
+              } w-[40px] lg:w-[80px] `}
             >
               <DashboardIcon />
             </span>
@@ -37,17 +37,19 @@ export default function AppLayout({
             onClick={() => router.push("/map")}
             className={`${
               activePage === "map" && "bg-terra-accent-bg text-terra"
-            } flex flex-col items-center rounded-lg fill-terra-accent-bg space-y-4 p-4 pr-0 hover:fill-terra w-full cursor-pointer hover:bg-terra-accent-bg hover:text-terra text-terra-white text-xl`}
+            } flex lg:flex-col h-full lg:h-auto items-center justify-center lg:rounded-lg lg:rounded-r-none fill-terra-accent-bg space-y-4 p-2 py-0 lg:p-4 lg:pr-0 hover:fill-terra w-full cursor-pointer hover:bg-terra-accent-bg hover:text-terra text-terra-white text-xl`}
           >
-            <p>Map</p>
+            <p className="hidden lg:block">Map</p>
             <span
-              className={`${activePage === "map" && "fill-terra"} w-[80px] `}
+              className={`${
+                activePage === "map" && "fill-terra"
+              } w-[40px] lg:w-[80px] py-0 `}
             >
               <MapIcon />
             </span>
           </li>
         </ul>
-        <p className="absolute bottom-[0px] text-terra-white mr-4">
+        <p className="hidden lg:block absolute bottom-[0px] text-terra-white mr-4">
           Designed and built with 💖 by{" "}
           <a
             className="my_github_link"
@@ -59,7 +61,7 @@ export default function AppLayout({
           </a>
         </p>
       </nav>
-      <main className="w-3/4 lg:ml-[21rem] py-2">{children}</main>
+      <main className="w-full  lg:w-3/4 lg:ml-[21rem] p-2">{children}</main>
     </div>
   );
 }
