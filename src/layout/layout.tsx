@@ -1,5 +1,6 @@
 "use client";
 import DashboardIcon from "@/app/assets/svgs/DashboardIcon";
+import LogoIcon from "@/app/assets/svgs/LogoIcon";
 import MapIcon from "@/app/assets/svgs/MapIcon";
 import { useRouter } from "next/navigation";
 
@@ -11,12 +12,12 @@ export default function AppLayout({
   return (
     <div className="flex h-full items-start">
       <nav className="z-10 bottom-0 left-0 h-[12vh] lg:top-0 w-[100vw] bg-terra-accent lg:w-1/5 flex fixed lg:flex-col items-center lg:h-[100vh] px-0 py-0 lg:pr-0 lg:p-4">
-        <h1
+        <span
           onClick={() => router.push("/")}
-          className="hidden lg:block text-6xl text-white cursor-pointer mb-6 mr-4 hover:text-terra-accent-bg"
+          className="hidden lg:block w-1/2 fill-terra cursor-pointer mb-6 hover:fill-terra-accent-bg"
         >
-          Terralyse
-        </h1>
+          <LogoIcon />
+        </span>
         <ul className="flex flex-row lg:flex-col w-full h-full py-0 lg:py-auto lg:pr-0 items-center justify-between lg:justify-normal lg:space-y-5 h-[60%]">
           <li
             onClick={() => router.push("/dashboard")}

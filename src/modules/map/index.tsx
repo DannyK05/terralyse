@@ -10,6 +10,7 @@ import { TSoilTemp } from "../dashboard/components/SoilTempGraph";
 import { TSoilWetness } from "../dashboard/components/SoilWetnessGraph";
 import { TWindSpeed } from "../dashboard/components/WindSpeedGraph";
 import { THumidity } from "../dashboard/components/HumidityGraph";
+import LogoIcon from "@/app/assets/svgs/LogoIcon";
 export default function Map() {
   const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const aiKey: string = process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY
@@ -117,10 +118,11 @@ Wind Speed: ${JSON.stringify(windSpeed)}.`;
   return (
     <AppLayout activePage="map">
       <section className="flex flex-col items-center space-y-2 mb-[80px] ">
-        <div className="w-full bg-terra text-center p-4 mb-4 shadow-lg">
-          <h1 className="text-terra-white  text-3xl">
-            Prediction Map integrated with Google Gemini 1.5
-          </h1>
+        <div className="w-full flex items-center justify-between lg:block bg-terra text-center p-4 mb-4 shadow-lg">
+          <span className="fill-white lg:hidden w-1/5">
+            <LogoIcon />
+          </span>
+          <h1 className="text-terra-white  text-3xl">Prediction Map</h1>
         </div>
         <button
           className="p-2 w-[80%] rounded-lg bg-terra text-white active:bg-terra-accent-bg active:text-terra hover:text-terra hover:bg-terra-accent-bg"

@@ -7,6 +7,7 @@ import DashboardIcon from "./assets/svgs/DashboardIcon";
 import MapIcon from "./assets/svgs/MapIcon";
 import Symbol from "./assets/images/african-symbol.png";
 import CornIcon from "./assets/svgs/CornIcon";
+import LogoIcon from "./assets/svgs/LogoIcon";
 
 export default function Home() {
   const router = useRouter();
@@ -17,6 +18,9 @@ export default function Home() {
         <div className=" flex-col lg:w-[80%] md:w-[80%] lg:flex-row md:flex-row relative flex items-center lg:justify-between">
           {" "}
           <div className="flex h-full flex-col items-center space-y-2">
+            <span className="fill-terra w-1/4">
+              <LogoIcon />
+            </span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl text-terra">
               Terralyse
             </h1>

@@ -7,6 +7,7 @@ import WindSpeedGraph from "./components/WindSpeedGraph";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import coordinate from "../../utilities/data/coordinate.json";
 import { useState } from "react";
+import LogoIcon from "@/app/assets/svgs/LogoIcon";
 export const months = [
   "Jan",
   "Feb",
@@ -61,7 +62,10 @@ export default function Dashboard() {
   return (
     <AppLayout activePage="dashboard">
       <>
-        <div className=" bg-terra w-full lg:w-auto text-center p-4 mb-4 shadow-lg">
+        <div className=" bg-terra w-full flex items-center space-between lg:block lg:w-auto text-center p-4 mb-4 shadow-lg">
+          <span className="fill-white lg:hidden w-1/5">
+            <LogoIcon />
+          </span>
           <h1 className="text-xl text-terra-white md:text-2xl lg:text-3xl">
             Northen - Nigeria Analysis Dashboard
           </h1>
