@@ -85,6 +85,15 @@ export default function Dashboard() {
                         onClick={handleLocationSelection}
                         key={index}
                         position={{ lat: lat, lng: lng }}
+                        icon={
+                          lat === mapLocation.lat && lng === mapLocation.lng
+                            ? {
+                                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                              }
+                            : {
+                                url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                              }
+                        }
                       />
                     ))}
                   </GoogleMap>
