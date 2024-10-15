@@ -14,7 +14,7 @@ export default function AppLayout({
       <nav className="z-10 bottom-0 left-0 h-[12vh] lg:top-0 w-[100vw] bg-terra-accent lg:w-1/5 flex fixed lg:flex-col items-center lg:h-[100vh] px-0 py-0 lg:pr-0 lg:p-4">
         <span
           onClick={() => router.push("/")}
-          className="hidden lg:block w-1/2 fill-terra cursor-pointer mb-6 hover:fill-terra-accent-bg"
+          className="hidden lg:block w-1/2 fill-terra cursor-pointer mb-6 lg:hover:fill-terra-accent-bg"
         >
           <LogoIcon />
         </span>
@@ -23,7 +23,7 @@ export default function AppLayout({
             onClick={() => router.push("/dashboard")}
             className={`${
               activePage === "dashboard" && "bg-terra-accent-bg text-terra"
-            } flex flex-col-reverse lg:flex-col h-full lg:h-auto items-center lg:rounded-r-none justify-center space-y-4 p-2 py-0 lg:p-4 lg:pr-0 hover:fill-terra fill-terra-accent-bg  w-full cursor-pointer lg:rounded-lg hover:bg-terra-accent-bg hover:text-terra text-xl text-terra-white`}
+            } flex flex-col-reverse lg:flex-col h-full lg:h-auto items-center lg:rounded-r-none justify-center space-y-4 p-2 py-0 lg:p-4 lg:pr-0 active:bg-terra-accent-bg active:fill-terra active:text-terra lg:hover:fill-terra fill-terra-accent-bg   w-full cursor-pointer lg:rounded-lg lg:hover:bg-terra-accent-bg lg:hover:text-terra text-xl text-terra-white`}
           >
             <p className="hidden lg:block">Dashboard</p>
             <span
@@ -38,7 +38,7 @@ export default function AppLayout({
             onClick={() => router.push("/map")}
             className={`${
               activePage === "map" && "bg-terra-accent-bg text-terra"
-            } flex lg:flex-col h-full lg:h-auto items-center justify-center lg:rounded-lg lg:rounded-r-none fill-terra-accent-bg space-y-4 p-2 py-0 lg:p-4 lg:pr-0 hover:fill-terra w-full cursor-pointer hover:bg-terra-accent-bg hover:text-terra text-terra-white text-xl`}
+            } flex lg:flex-col h-full lg:h-auto items-center justify-center lg:rounded-lg lg:rounded-r-none fill-terra-accent-bg active:bg-terra-accent-bg active:fill-terra active:text-terra space-y-4 p-2 py-0 lg:p-4 lg:pr-0 lg:hover:fill-terra w-full cursor-pointer lg:hover:bg-terra-accent-bg lg:hover:text-terra text-terra-white text-xl`}
           >
             <p className="hidden lg:block">Map</p>
             <span

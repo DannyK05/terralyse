@@ -151,7 +151,7 @@ export default function Dashboard() {
                   className={`${
                     humidityParam === "specificHumidity" &&
                     "bg-terra-accent-bg text-terra font-bold"
-                  } w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  } w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
                   onClick={() => setHumidityParam("specificHumidity")}
                 >
                   Specific Humidity
@@ -160,7 +160,7 @@ export default function Dashboard() {
                   className={`${
                     humidityParam === "relativeHumidity" &&
                     "bg-terra-accent-bg text-terra font-bold"
-                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
                   onClick={() => setHumidityParam("relativeHumidity")}
                 >
                   Relative Humidity
@@ -169,7 +169,7 @@ export default function Dashboard() {
                   className={`${
                     humidityParam === "averagePrecipitation" &&
                     "bg-terra-accent-bg text-terra font-bold"
-                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
                   onClick={() => setHumidityParam("averagePrecipitation")}
                 >
                   Average Precipitation
@@ -178,7 +178,7 @@ export default function Dashboard() {
                   className={`${
                     humidityParam === "sumAveragePrecipitation" &&
                     "bg-terra-accent-bg text-terra font-bold"
-                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
                   onClick={() => setHumidityParam("sumAveragePrecipitation")}
                 >
                   Sum Average Precipitation
@@ -207,7 +207,7 @@ export default function Dashboard() {
                   className={`${
                     wetnessParam === "topSoil" &&
                     "bg-accent-terra-bg text-terra font-bold"
-                  } p-2 bg-terra-white rounded-lg text-sm cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  } p-2 bg-terra-white rounded-lg text-sm cursor-pointer active:bg-terra-accent-bg active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
                   onClick={() => setWetnessParam("topSoil")}
                 >
                   Top Soil
@@ -216,7 +216,7 @@ export default function Dashboard() {
                   className={`${
                     wetnessParam === "rootSoil" &&
                     "bg-accent-terra-bg text-terra font-bold"
-                  } p-2 bg-terra-white rounded-lg text-sm cursor-pointer hover:bg-terra-accent-bg hover:text-terra`}
+                  } p-2 bg-terra-white rounded-lg text-sm cursor-pointer active:bg-terra-accent-bg active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
                   onClick={() => setWetnessParam("rootSoil")}
                 >
                   Root Soil
