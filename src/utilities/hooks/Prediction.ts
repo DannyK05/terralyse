@@ -8,7 +8,7 @@ import { TWindSpeed } from "../../modules/dashboard/components/WindSpeedGraph";
 import { THumidity } from "../../modules/dashboard/components/HumidityGraph";
 import coordinate from "../data/coordinate.json";
 
-const prediction: {
+export const prediction: {
   lat: number;
   lng: number;
   drought: number;
@@ -25,32 +25,32 @@ const relativeHumidity: THumidity = [];
 const averagePrecipitation: THumidity = [];
 const sumAveragePrecipitation: THumidity = [];
 
-const droughtSoilTemp = 0;
-const droughtWindSpeed = 0;
-const droughtSpecificHumidity = 0;
-const droughtRootSoilWetness = 0;
-const droughtTopSoilWetness = 0;
-const droughtRelativeHumidity = 0;
-const droughtAveragePrecipitation = 0;
-const droughtSumAveragePrecipitation = 0;
+const droughtSoilTemp = 35;
+const droughtWindSpeed = 10;
+const droughtSpecificHumidity = 7.5;
+const droughtRootSoilWetness = 0.9;
+const droughtTopSoilWetness = 0.1;
+const droughtRelativeHumidity = 25;
+const droughtAveragePrecipitation = 10;
+const droughtSumAveragePrecipitation = 120;
 
-const floodSoilTemp = 0;
-const floodWindSpeed = 0;
-const floodSpecificHumidity = 0;
-const floodRootSoilWetness = 0;
-const floodTopSoilWetness = 0;
-const floodRelativeHumidity = 0;
-const floodAveragePrecipitation = 0;
-const floodSumAveragePrecipitation = 0;
+const floodSoilTemp = 12;
+const floodWindSpeed = 20;
+const floodSpecificHumidity = 25;
+const floodRootSoilWetness = 0.9;
+const floodTopSoilWetness = 0.9;
+const floodRelativeHumidity = 95;
+const floodAveragePrecipitation = 35;
+const floodSumAveragePrecipitation = 300;
 
-const farmingSoilTemp = 0;
-const farmingWindSpeed = 0;
-const farmingSpecificHumidity = 0;
-const farmingRootSoilWetness = 0;
-const farmingTopSoilWetness = 0;
-const farmingRelativeHumidity = 0;
-const farmingAveragePrecipitation = 0;
-const farmingSumAveragePrecipitation = 0;
+const farmingSoilTemp = 20;
+const farmingWindSpeed = 3;
+const farmingSpecificHumidity = 13;
+const farmingRootSoilWetness = 0.6;
+const farmingTopSoilWetness = 0.6;
+const farmingRelativeHumidity = 70;
+const farmingAveragePrecipitation = 10;
+const farmingSumAveragePrecipitation = 150;
 
 soil_temp.find((data) => {
   if (data.YEAR === 2020 || data.YEAR === 2021) {
@@ -106,7 +106,7 @@ humidity.find((data) => {
   }
 });
 
-const getPrediction = () => {
+export const getPrediction = () => {
   for (let i = 0; i < coordinate.length; i++) {
     const selectedCoordinate = coordinate[i];
     const selectedSpecificHumidity = specificHumidity.find(
@@ -192,6 +192,16 @@ const getPrediction = () => {
           selectedSoilTemp.DEC) /
         (12 * droughtSoilTemp)
       : 0;
+    console.log(
+      DAvgPrecip,
+      DSumAvgPrecip, //error
+      DRelHumid, //error
+      DSpecHumid, //error
+      DRootSoil,
+      DTopSoil, //error
+      DSoilTemp,
+      DWindSpeed
+    );
     const DroughtPrediction =
       ((DAvgPrecip +
         DSumAvgPrecip +
@@ -206,25 +216,25 @@ const getPrediction = () => {
 
     // Flood prediction data
     // These are conditional variables to check if the selected variable is undefined
-    let FAvgPrecip = selectedAveragePrecipitation
+    const FAvgPrecip = selectedAveragePrecipitation
       ? selectedAveragePrecipitation.ANN / floodAveragePrecipitation
       : 0;
-    let FSumAvgPrecip = selectedSumAveragePrecipitation
+    const FSumAvgPrecip = selectedSumAveragePrecipitation
       ? selectedSumAveragePrecipitation.ANN / floodSumAveragePrecipitation
       : 0;
-    let FRelHumid = selectedRelativeHumidity
+    const FRelHumid = selectedRelativeHumidity
       ? selectedRelativeHumidity.ANN / floodRelativeHumidity
       : 0;
-    let FSpecHumid = selectedSpecificHumidity
+    const FSpecHumid = selectedSpecificHumidity
       ? selectedSpecificHumidity.ANN / floodSpecificHumidity
       : 0;
-    let FRootSoil = selectedRootSoilWetness
+    const FRootSoil = selectedRootSoilWetness
       ? selectedRootSoilWetness.ANN / floodRootSoilWetness
       : 0;
-    let FTopSoil = selectedTopSoilWetness
+    const FTopSoil = selectedTopSoilWetness
       ? selectedTopSoilWetness.ANN / floodTopSoilWetness
       : 0;
-    let FWindSpeed = selectedWindSpeed
+    const FWindSpeed = selectedWindSpeed
       ? (selectedWindSpeed.JAN +
           selectedWindSpeed.FEB +
           selectedWindSpeed.MAR +
@@ -239,7 +249,7 @@ const getPrediction = () => {
           selectedWindSpeed.DEC) /
         (12 * floodWindSpeed)
       : 0;
-    let FSoilTemp = selectedSoilTemp
+    const FSoilTemp = selectedSoilTemp
       ? (selectedSoilTemp.JAN +
           selectedSoilTemp.FEB +
           selectedSoilTemp.MAR +
@@ -269,25 +279,25 @@ const getPrediction = () => {
 
     // Farming possibility data
     // These are conditional variables to check if the selected variable is undefined
-    let FmAvgPrecip = selectedAveragePrecipitation
+    const FmAvgPrecip = selectedAveragePrecipitation
       ? selectedAveragePrecipitation.ANN / farmingAveragePrecipitation
       : 0;
-    let FmSumAvgPrecip = selectedSumAveragePrecipitation
+    const FmSumAvgPrecip = selectedSumAveragePrecipitation
       ? selectedSumAveragePrecipitation.ANN / farmingSumAveragePrecipitation
       : 0;
-    let FmRelHumid = selectedRelativeHumidity
+    const FmRelHumid = selectedRelativeHumidity
       ? selectedRelativeHumidity.ANN / farmingRelativeHumidity
       : 0;
-    let FmSpecHumid = selectedSpecificHumidity
+    const FmSpecHumid = selectedSpecificHumidity
       ? selectedSpecificHumidity.ANN / farmingSpecificHumidity
       : 0;
-    let FmRootSoil = selectedRootSoilWetness
+    const FmRootSoil = selectedRootSoilWetness
       ? selectedRootSoilWetness.ANN / farmingRootSoilWetness
       : 0;
-    let FmTopSoil = selectedTopSoilWetness
+    const FmTopSoil = selectedTopSoilWetness
       ? selectedTopSoilWetness.ANN / farmingTopSoilWetness
       : 0;
-    let FmWindSpeed = selectedWindSpeed
+    const FmWindSpeed = selectedWindSpeed
       ? (selectedWindSpeed.JAN +
           selectedWindSpeed.FEB +
           selectedWindSpeed.MAR +
@@ -302,7 +312,7 @@ const getPrediction = () => {
           selectedWindSpeed.DEC) /
         (12 * farmingWindSpeed)
       : 0;
-    let FmSoilTemp = selectedSoilTemp
+    const FmSoilTemp = selectedSoilTemp
       ? (selectedSoilTemp.JAN +
           selectedSoilTemp.FEB +
           selectedSoilTemp.MAR +
@@ -338,6 +348,4 @@ const getPrediction = () => {
       flood: FloodPrediction,
     });
   }
-
-  return [getPrediction, { prediction }];
 };

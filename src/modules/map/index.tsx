@@ -2,6 +2,7 @@
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import AppLayout from "@/layout/layout";
 import LogoIcon from "@/app/assets/svgs/LogoIcon";
+import { getPrediction, prediction } from "@/utilities/hooks/Prediction";
 export default function Map() {
   const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
@@ -22,6 +23,10 @@ export default function Map() {
       </div>
     );
   }
+  const getResult = () => {
+    getPrediction();
+    console.log(prediction);
+  };
   return (
     <AppLayout activePage="map">
       <section className="flex flex-col items-center space-y-2 mb-[80px] ">
@@ -34,7 +39,7 @@ export default function Map() {
         <button
           className="p-2 w-[80%] rounded-lg bg-terra text-white active:bg-terra-accent-bg active:text-terra lg:hover:text-terra lg:hover:bg-terra-accent-bg"
           type="button"
-          // onClick={getResult}
+          onClick={getResult}
         >
           Get Prediction
         </button>
