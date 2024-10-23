@@ -17,6 +17,10 @@
   font-family: "MavenPro";
   src: url(./fonts/MavenPro-VariableFont_wght.ttf);
 }
+@font-face {
+  font-family: "Archivo";
+  src: url("./fonts/ArchivoBlack-Regular.ttf");
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -60,7 +64,9 @@ button:active {
 h1 {
   font-family: "Earthis", Arial, Helvetica, sans-serif;
 }
-
+.font-blade {
+  font-family: "Archivo", Arial, Helvetica, sans-serif;
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;

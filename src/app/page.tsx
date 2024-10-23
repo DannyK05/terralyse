@@ -67,7 +67,7 @@ export default function Home() {
                 using 20 year NASA Power data. Observe the map with indications
                 from Gemini&apos;s result showing areas prone to disaster.
               </p>
-              <span className="w-[45%] lg:w-[95%] md:w-[95%] px-4 ">
+              <span className="w-[45%] lg:w-[95%] lg:h-[90%] md:w-[95%] px-4 ">
                 <MapIcon />
               </span>
             </button>
