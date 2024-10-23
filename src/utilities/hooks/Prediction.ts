@@ -144,25 +144,25 @@ export const getPrediction = () => {
 
     // Drought Prediction Data
     // These are conditional variables to check if the selected variable is undefined
-    let DAvgPrecip = selectedAveragePrecipitation
+    const DAvgPrecip = selectedAveragePrecipitation
       ? selectedAveragePrecipitation.ANN / droughtAveragePrecipitation
       : 0;
-    let DSumAvgPrecip = selectedSumAveragePrecipitation
+    const DSumAvgPrecip = selectedSumAveragePrecipitation
       ? selectedSumAveragePrecipitation.ANN / droughtSumAveragePrecipitation
       : 0;
-    let DRelHumid = selectedRelativeHumidity
+    const DRelHumid = selectedRelativeHumidity
       ? selectedRelativeHumidity.ANN / droughtRelativeHumidity
       : 0;
-    let DSpecHumid = selectedSpecificHumidity
+    const DSpecHumid = selectedSpecificHumidity
       ? selectedSpecificHumidity.ANN / droughtSpecificHumidity
       : 0;
-    let DRootSoil = selectedRootSoilWetness
+    const DRootSoil = selectedRootSoilWetness
       ? selectedRootSoilWetness.ANN / droughtRootSoilWetness
       : 0;
-    let DTopSoil = selectedTopSoilWetness
+    const DTopSoil = selectedTopSoilWetness
       ? selectedTopSoilWetness.ANN / droughtTopSoilWetness
       : 0;
-    let DWindSpeed = selectedWindSpeed
+    const DWindSpeed = selectedWindSpeed
       ? (selectedWindSpeed.JAN +
           selectedWindSpeed.FEB +
           selectedWindSpeed.MAR +
@@ -177,7 +177,7 @@ export const getPrediction = () => {
           selectedWindSpeed.DEC) /
         (12 * droughtWindSpeed)
       : 0;
-    let DSoilTemp = selectedSoilTemp
+    const DSoilTemp = selectedSoilTemp
       ? (selectedSoilTemp.JAN +
           selectedSoilTemp.FEB +
           selectedSoilTemp.MAR +
