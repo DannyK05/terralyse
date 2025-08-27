@@ -1,5 +1,5 @@
 "use client";
-import data from "../../../utilities/data/soil_temp.json";
+import data from "../../../utilities/data/soil_temp";
 import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { months } from "..";
@@ -24,6 +24,7 @@ export type TSoilTemp = {
   DEC: number;
   ANN: number;
 }[];
+
 export default function SoilTempGraph({
   lat = 10.25,
   lng = 10.25,

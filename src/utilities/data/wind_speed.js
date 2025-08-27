@@ -1,4 +1,4 @@
-[
+export const wind_speed = [
   {
     "YEAR": 2001,
     "LAT": 10.25,

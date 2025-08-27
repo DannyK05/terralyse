@@ -1,13 +1,14 @@
 "use client";
+import { useState } from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import AppLayout from "@/layout/layout";
 import HumidityGraph from "./components/HumidityGraph";
 import SoilTempGraph from "./components/SoilTempGraph";
 import SoilWetnessGraph from "./components/SoilWetnessGraph";
 import WindSpeedGraph from "./components/WindSpeedGraph";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import coordinate from "../../utilities/data/coordinate.json";
-import { useState } from "react";
+import coordinate from "../../utilities/data/coordinate";
 import LogoIcon from "@/app/assets/svgs/LogoIcon";
+
 export const months = [
   "Jan",
   "Feb",
@@ -22,14 +23,17 @@ export const months = [
   "Nov",
   "Dec",
 ];
+
 export default function Dashboard() {
   const [mapLocation, setMapLocation] = useState<{ lat: number; lng: number }>({
     lat: 10.25,
     lng: 10.25,
   });
+
   const [wetnessParam, setWetnessParam] = useState<"topSoil" | "rootSoil">(
     "topSoil"
   );
+
   const [humidityParam, setHumidityParam] = useState<
     | "specificHumidity"
     | "relativeHumidity"
@@ -38,10 +42,12 @@ export default function Dashboard() {
   >("specificHumidity");
 
   const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   const center = {
     lat: mapLocation.lat,
     lng: mapLocation.lng,
   };
+
   const containerStyle = {
     width: "100%",
     height: "250px",
@@ -107,27 +113,31 @@ export default function Dashboard() {
               )}
             </div>
           </section>
+
           <section className="h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
               <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
                 Wind Speed
               </h1>
+
               <p className="text-terra-white h- mb-2">
                 Wind speed plays a vtal role in pollination and soil erosion and
                 irrigation efficiency
               </p>
             </div>
+
             <div className="h-[70%] mt-5">
               <WindSpeedGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
+
           <section className="h-[95vh] bg-terra w-full lg:w-full md:w-full p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
               <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
                 Soil Skin Temperature
               </h1>
+
               <p className="text-terra-white mb-2">
-                {" "}
                 It plays a role in seed germination, heat stress in crops and
                 soil microbial activity
               </p>
@@ -136,11 +146,13 @@ export default function Dashboard() {
               <SoilTempGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
+
           <section className="h-[100vh] lg:h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[20%]">
               <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
                 Humidity and Precipitation
               </h1>
+
               <p className="text-terra-white mb-2">
                 They play a vital role in prediciting rainfall, plant growth and
                 soil moisture retention
@@ -156,6 +168,7 @@ export default function Dashboard() {
                 >
                   Specific Humidity
                 </span>
+
                 <span
                   className={`${
                     humidityParam === "relativeHumidity" &&
@@ -165,6 +178,7 @@ export default function Dashboard() {
                 >
                   Relative Humidity
                 </span>
+
                 <span
                   className={`${
                     humidityParam === "averagePrecipitation" &&
@@ -174,6 +188,7 @@ export default function Dashboard() {
                 >
                   Average Precipitation
                 </span>
+
                 <span
                   className={`${
                     humidityParam === "sumAveragePrecipitation" &&
@@ -185,6 +200,7 @@ export default function Dashboard() {
                 </span>
               </div>
             </div>
+
             <div className="h-[70%] mt-[60px]">
               <HumidityGraph
                 param={humidityParam}
@@ -193,15 +209,18 @@ export default function Dashboard() {
               />
             </div>
           </section>
+
           <section className="h-[95vh] w-full lg:w-full mb-[80px] lg:mb-auto md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="h-[25%]">
               <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
                 Soil Wetness
               </h1>
+
               <p className="text-terra-white mb-2">
                 Soil Wetness helps in plant growth and water absorption and
                 could be a indication of constant rainfall
               </p>
+
               <div className="flex items-center space-x-2">
                 <span
                   className={`${
@@ -212,6 +231,7 @@ export default function Dashboard() {
                 >
                   Top Soil
                 </span>
+
                 <span
                   className={`${
                     wetnessParam === "rootSoil" &&
@@ -223,6 +243,7 @@ export default function Dashboard() {
                 </span>
               </div>
             </div>
+
             <div className="h-[70%] mt-5">
               <SoilWetnessGraph
                 param={wetnessParam}

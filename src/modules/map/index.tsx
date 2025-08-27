@@ -1,8 +1,11 @@
 "use client";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import AppLayout from "@/layout/layout";
 import LogoIcon from "@/app/assets/svgs/LogoIcon";
 import { getPrediction, prediction } from "@/utilities/hooks/Prediction";
+import Flood from "../../app/assets/svgs/flood.svg";
+import Drought from "../../app/assets/svgs/drought.svg";
+import Plant from "../../app/assets/svgs/plant.svg";
 export default function Map() {
   const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
@@ -10,6 +13,7 @@ export default function Map() {
     lat: 10.25,
     lng: 10.25,
   };
+
   const containerStyle = {
     width: "100%",
     height: "600px",
@@ -49,7 +53,38 @@ export default function Map() {
             center={center}
             zoom={10}
           >
-            {/* Additional components like Markers or InfoWindows go here */}
+            {/* {prediction.length !== 0 &&
+              prediction.map(
+                (coord) =>
+                  coord.drought > 50 && (
+                    <Marker
+                      key={`${coord.lat}-${coord.lng}`}
+                      position={{
+                        lat: coord.lat - 0.02,
+                        lng: coord.lng - 0.02,
+                      }}
+                      icon={{
+                        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                      }}
+                    />
+                  ) coord.flood > 50 && (
+                    <Marker
+                      key={`${coord.lat}-${coord.lng}`}
+                      position={{ lat: coord.lat + 0.02, lng: coord.lng + 0.02 }}
+                      icon={{
+                        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                      }}
+                    />
+                  )  coord.farming > 50 && (
+                    <Marker
+                      key={`${coord.lat}-${coord.lng}`}
+                      position={{ lat: coord.lat, lng: coord.lng }}
+                      icon={{
+                        url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+                      }}
+                    />
+                  
+              )} */}
           </GoogleMap>
         </LoadScript>
       </section>

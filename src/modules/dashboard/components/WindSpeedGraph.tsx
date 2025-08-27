@@ -1,5 +1,5 @@
 "use client";
-import data from "../../../utilities/data/wind_speed.json";
+import data from "../../../utilities/data/wind_speed";
 import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";

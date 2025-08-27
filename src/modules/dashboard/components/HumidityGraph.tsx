@@ -1,5 +1,5 @@
 "use client";
-import data from "../../../utilities/data/humidity.json";
+import data from "../../../utilities/data/humidity";
 import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { months } from "..";
