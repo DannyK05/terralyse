@@ -1,4 +1,4 @@
-export const soil_wetness = [
+export const soilWetness = [
   {
     PARAMETER: "topSoil",
     YEAR: 2001,

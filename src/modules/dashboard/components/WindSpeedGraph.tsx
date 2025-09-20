@@ -1,28 +1,11 @@
 "use client";
-import data from "../../../utilities/data/wind_speed";
+import { windSpeed } from "../../../utilities/data/wind-speed";
 import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
-import { months } from "..";
-import { colors } from "../../../utilities/data/chart_colors";
-
-export type TWindSpeed = {
-  YEAR: number;
-  LAT: number;
-  LON: number;
-  JAN: number;
-  FEB: number;
-  MAR: number;
-  APR: number;
-  MAY: number;
-  JUN: number;
-  JUL: number;
-  AUG: number;
-  SEP: number;
-  OCT: number;
-  NOV: number;
-  DEC: number;
-}[];
+import { months } from "../data";
+import { colors } from "../../../utilities/data/chart-colors";
+import { TSoilDataType } from "../types";
 
 export default function WindSpeedGraph({
   lat = 10.25,
@@ -31,8 +14,7 @@ export default function WindSpeedGraph({
   lat: number;
   lng: number;
 }) {
-  const windSpeed: TWindSpeed = data;
-  const windSpeedData: TWindSpeed = []; //Wind speed for the giving location over the years
+  const windSpeedData: TSoilDataType = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
   const longitude = lng;

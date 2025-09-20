@@ -6,23 +6,8 @@ import HumidityGraph from "./components/HumidityGraph";
 import SoilTempGraph from "./components/SoilTempGraph";
 import SoilWetnessGraph from "./components/SoilWetnessGraph";
 import WindSpeedGraph from "./components/WindSpeedGraph";
-import coordinate from "../../utilities/data/coordinate";
+import { coordinate } from "../../utilities/data/coordinate";
 import LogoIcon from "@/app/assets/svgs/LogoIcon";
-
-export const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 
 export default function Dashboard() {
   const [mapLocation, setMapLocation] = useState<{ lat: number; lng: number }>({
@@ -77,7 +62,7 @@ export default function Dashboard() {
           </h1>
         </div>
 
-        <div className="w-full grid lg:grid-cols-2 md:gap-x-2 lg:gap-x-2 gap-y-4">
+        <div className="w-full flex flex-col items-center space-y-2 ">
           <section className=" h-[45vh] lg:h-[52vh] bg-terra w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
             <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
               Map Selection

@@ -1,6 +1,6 @@
-import { soil_temp } from "../data/soil_temp";
-import { soil_wetness } from "../data/soil_wetness";
-import { wind_speed } from "../data/wind_speed";
+import { soil_temp } from "../data/soil-temp";
+import { soil_wetness } from "../data/soil-wetness";
+import { wind_speed } from "../data/wind-speed";
 import { coordinate } from "../data/coordinate";
 import { humidity } from "../data/humidity";
 import { TSoilTemp } from "../../modules/dashboard/components/SoilTempGraph";

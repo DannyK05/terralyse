@@ -1,4 +1,4 @@
-export const soil_temp =[
+export const soilTemp =[
   {
     "YEAR": 2001,
     "LAT": 10.25,

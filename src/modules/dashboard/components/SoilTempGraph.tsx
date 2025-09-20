@@ -1,29 +1,11 @@
 "use client";
-import data from "../../../utilities/data/soil_temp";
+import { soilTemp } from "../../../utilities/data/soil-temp";
 import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
-import { months } from "..";
+import { months } from "../data";
 import { Line } from "react-chartjs-2";
-import { colors } from "../../../utilities/data/chart_colors";
-
-export type TSoilTemp = {
-  YEAR: number;
-  LAT: number;
-  LON: number;
-  JAN: number;
-  FEB: number;
-  MAR: number;
-  APR: number;
-  MAY: number;
-  JUN: number;
-  JUL: number;
-  AUG: number;
-  SEP: number;
-  OCT: number;
-  NOV: number;
-  DEC: number;
-  ANN: number;
-}[];
+import { colors } from "../../../utilities/data/chart-colors";
+import { TSoilDataType } from "../types";
 
 export default function SoilTempGraph({
   lat = 10.25,
@@ -32,8 +14,7 @@ export default function SoilTempGraph({
   lat: number;
   lng: number;
 }) {
-  const soilTemp: TSoilTemp = data;
-  const soilTempData: TSoilTemp = []; //Wind speed for the given location over the years
+  const soilTempData: TSoilDataType = []; //Wind speed for the given location over the years
   const years: number[] = [];
   const latitude = lat;
   const longitude = lng;
