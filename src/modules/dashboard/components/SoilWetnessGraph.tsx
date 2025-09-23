@@ -1,29 +1,12 @@
 "use client";
-import data from "../../../utilities/data/soil_wetness.json";
+import { soilWetness } from "../../../utilities/data/soil-wetness";
 import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
-import { months } from "..";
+import { months } from "../data";
 import { Line } from "react-chartjs-2";
-import { colors } from "../../../utilities/data/chart_colors";
-export type TSoilWetness = {
-  PARAMETER: string;
-  YEAR: number;
-  LAT: number;
-  LON: number;
-  JAN: number;
-  FEB: number;
-  MAR: number;
-  APR: number;
-  MAY: number;
-  JUN: number;
-  JUL: number;
-  AUG: number;
-  SEP: number;
-  OCT: number;
-  NOV: number;
-  DEC: number;
-  ANN: number;
-}[];
+import { colors } from "../../../utilities/data/chart-colors";
+import { TSoilDataTypeWithParams } from "../types";
+
 export default function SoilWetnessGraph({
   lat = 10.25,
   lng = 10.25,
@@ -33,8 +16,7 @@ export default function SoilWetnessGraph({
   lng: number;
   param?: "topSoil" | "rootSoil";
 }) {
-  const soilWetness: TSoilWetness = data;
-  const soilWetnessData: TSoilWetness = []; //Wind speed for the giving location over the years
+  const soilWetnessData: TSoilDataTypeWithParams = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
   const longitude = lng;

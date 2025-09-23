@@ -34,7 +34,9 @@ export default function Home() {
           </span>
         </div>
         <div className="w-[80] relative flex items-center flex-col space-y-2">
-          <h1 className="text-xl md:text-2xl lg:text-3xl">Features: </h1>
+          <h1 className="text-xl text-terra md:text-2xl lg:text-3xl">
+            Features:{" "}
+          </h1>
           <span className="absolute hidden lg:block top-0 left-[10%]">
             <SunIcon />
           </span>

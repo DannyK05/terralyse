@@ -1,29 +1,11 @@
 "use client";
-import data from "../../../utilities/data/humidity.json";
+import { humidity } from "../../../utilities/data/humidity";
 import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
-import { months } from "..";
+import { months } from "../data";
 import { Line } from "react-chartjs-2";
-import { colors } from "../../../utilities/data/chart_colors";
-export type THumidity = {
-  PARAMETER: string;
-  YEAR: number;
-  LAT: number;
-  LON: number;
-  JAN: number;
-  FEB: number;
-  MAR: number;
-  APR: number;
-  MAY: number;
-  JUN: number;
-  JUL: number;
-  AUG: number;
-  SEP: number;
-  OCT: number;
-  NOV: number;
-  DEC: number;
-  ANN: number;
-}[];
+import { colors } from "../../../utilities/data/chart-colors";
+import { TSoilDataTypeWithParams } from "../types";
 
 export default function HumidityGraph({
   lat = 10.25,
@@ -38,8 +20,7 @@ export default function HumidityGraph({
     | "averagePrecipitation"
     | "sumAveragePrecipitation";
 }) {
-  const humidity: THumidity = data;
-  const humidityData: THumidity = []; //Wind speed for the giving location over the years
+  const humidityData: TSoilDataTypeWithParams = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
   const longitude = lng;
