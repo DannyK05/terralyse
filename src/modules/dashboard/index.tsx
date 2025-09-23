@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
 import AppLayout from "@/layout/layout";
 import HumidityGraph from "./components/HumidityGraph";
@@ -10,6 +11,19 @@ import WindSpeedGraph from "./components/WindSpeedGraph";
 import { coordinate } from "../../utilities/data/coordinate";
 import LogoIcon from "@/app/assets/svgs/LogoIcon";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+// Fix marker icons for Next.js
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: () => string })
+  ._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x.src,
+  iconUrl: markerIcon.src,
+  shadowUrl: markerShadow.src,
+});
 
 export default function Dashboard() {
   const [mapLocation, setMapLocation] = useState<{ lat: number; lng: number }>({
@@ -32,7 +46,7 @@ export default function Dashboard() {
     | "sumAveragePrecipitation"
   >("specificHumidity");
 
-  const generateAddress = async () => {
+  const generateAddress = async (lat: number, lon: number) => {
     const options = {
       method: "POST",
       headers: { accept: "application/json" },
@@ -40,7 +54,7 @@ export default function Dashboard() {
 
     try {
       const response = await fetch(
-        `https://us1.locationiq.com/v1/reverse?key=${apiKey}&lat=${mapLocation.lat}&lon=${mapLocation.lng}&format=json&`,
+        `https://us1.locationiq.com/v1/reverse?key=${apiKey}&lat=${lat}&lon=${lon}&format=json&`,
         options
       );
 
@@ -66,7 +80,7 @@ export default function Dashboard() {
 
         <div className="w-full flex flex-col items-center space-y-2 ">
           <section className="bg-terra flex flex-col items-center space-y-2 w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
-            <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
+            <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
               Map Selection
             </h1>
             <div className="w-full h-1/4">
@@ -86,12 +100,12 @@ export default function Dashboard() {
                     eventHandlers={{
                       click: () => {
                         setMapLocation({ lat: lat, lng: lng });
-                        generateAddress();
+                        generateAddress(lat, lng);
                       },
                     }}
                     position={[lat, lng]}
                   >
-                    <Popup>{`Latitude: ${lat} and Longitude: ${lng}`}</Popup>
+                    <Popup>{locationAddress}</Popup>
                   </Marker>
                 ))}
               </MapContainer>
@@ -100,26 +114,31 @@ export default function Dashboard() {
 
           <section className="h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
-              <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
-                Wind Speed {locationAddress && `at ${locationAddress}`}
+              <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
+                Wind Speed{" "}
+                <span className="text-sm">
+                  {locationAddress && `at (${locationAddress})`}
+                </span>
               </h1>
 
-              <p className="text-terra-white h- mb-2">
+              <p className="text-terra-white mb-2">
                 Wind speed plays a vtal role in pollination and soil erosion and
                 irrigation efficiency
               </p>
             </div>
 
-            <div className="h-[70%] mt-5">
+            <div className="h-3/4 mt-3">
               <WindSpeedGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
 
           <section className="h-[95vh] bg-terra w-full lg:w-full md:w-full p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
-              <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
+              <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
                 Soil Skin Temperature{" "}
-                {locationAddress && `at ${locationAddress}`}
+                <span className="text-sm">
+                  {locationAddress && `at (${locationAddress})`}
+                </span>
               </h1>
 
               <p className="text-terra-white mb-2">
@@ -127,16 +146,18 @@ export default function Dashboard() {
                 soil microbial activity
               </p>
             </div>
-            <div className="h-[70%] mt-5">
+            <div className="h-3/4 mt-3">
               <SoilTempGraph lat={mapLocation.lat} lng={mapLocation.lng} />
             </div>
           </section>
 
           <section className="h-[100vh] lg:h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[20%]">
-              <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
+              <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
                 Humidity and Precipitation{" "}
-                {locationAddress && `at ${locationAddress}`}
+                <span className="text-sm">
+                  {locationAddress && `at (${locationAddress})`}
+                </span>
               </h1>
 
               <p className="text-terra-white mb-2">
@@ -198,8 +219,11 @@ export default function Dashboard() {
 
           <section className="h-[95vh] w-full lg:w-full mb-[80px] lg:mb-auto md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="h-[25%]">
-              <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
-                Soil Wetness {locationAddress && `at ${locationAddress}`}
+              <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
+                Soil Wetness{" "}
+                <span className="text-sm">
+                  {locationAddress && `at (${locationAddress})`}
+                </span>
               </h1>
 
               <p className="text-terra-white mb-2">
@@ -230,7 +254,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="h-[70%] mt-5">
+            <div className="h-3/4 mt-3">
               <SoilWetnessGraph
                 param={wetnessParam}
                 lat={mapLocation.lat}
