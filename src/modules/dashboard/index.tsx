@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import "leaflet/dist/leaflet.css";
+
 import AppLayout from "@/layout/layout";
 import HumidityGraph from "./components/HumidityGraph";
 import SoilTempGraph from "./components/SoilTempGraph";
@@ -8,12 +9,17 @@ import SoilWetnessGraph from "./components/SoilWetnessGraph";
 import WindSpeedGraph from "./components/WindSpeedGraph";
 import { coordinate } from "../../utilities/data/coordinate";
 import LogoIcon from "@/app/assets/svgs/LogoIcon";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 export default function Dashboard() {
   const [mapLocation, setMapLocation] = useState<{ lat: number; lng: number }>({
     lat: 10.25,
     lng: 10.25,
   });
+  const [locationAddress, setLocationAddress] = useState(
+    "Galambi, Bauchi, Bauchi State, Nigeria"
+  );
+  const apiKey = process.env.NEXT_PUBLIC_LOCATION_IQ_KEY;
 
   const [wetnessParam, setWetnessParam] = useState<"topSoil" | "rootSoil">(
     "topSoil"
@@ -26,27 +32,23 @@ export default function Dashboard() {
     | "sumAveragePrecipitation"
   >("specificHumidity");
 
-  const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const generateAddress = async () => {
+    const options = {
+      method: "POST",
+      headers: { accept: "application/json" },
+    };
 
-  const center = {
-    lat: mapLocation.lat,
-    lng: mapLocation.lng,
-  };
+    try {
+      const response = await fetch(
+        `https://us1.locationiq.com/v1/reverse?key=${apiKey}&lat=${mapLocation.lat}&lon=${mapLocation.lng}&format=json&`,
+        options
+      );
 
-  const containerStyle = {
-    width: "100%",
-    height: "250px",
-  };
+      const data = await response.json();
 
-  const handleLocationSelection = (e: google.maps.MapMouseEvent) => {
-    if (e.latLng) {
-      const newLat = e.latLng.lat();
-      const newLng = e.latLng.lng();
-      setMapLocation((mapLocation) => ({
-        ...mapLocation,
-        lat: newLat,
-        lng: newLng,
-      }));
+      setLocationAddress(data.display_name);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -63,46 +65,43 @@ export default function Dashboard() {
         </div>
 
         <div className="w-full flex flex-col items-center space-y-2 ">
-          <section className=" h-[45vh] lg:h-[52vh] bg-terra w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
+          <section className="bg-terra flex flex-col items-center space-y-2 w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
             <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
               Map Selection
             </h1>
-            <div className="w-full">
-              {mapKey && mapKey !== " " ? (
-                <LoadScript googleMapsApiKey={mapKey}>
-                  <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    center={center}
-                    zoom={10}
+            <div className="w-full h-1/4">
+              <MapContainer
+                className="h-[300px] w-full"
+                center={[mapLocation.lat, mapLocation.lng]}
+                zoom={13}
+                scrollWheelZoom={false}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {coordinate.map(({ lat, lng }, key) => (
+                  <Marker
+                    key={key}
+                    eventHandlers={{
+                      click: () => {
+                        setMapLocation({ lat: lat, lng: lng });
+                        generateAddress();
+                      },
+                    }}
+                    position={[lat, lng]}
                   >
-                    {coordinate.map(({ lng, lat }, index) => (
-                      <Marker
-                        onClick={handleLocationSelection}
-                        key={index}
-                        position={{ lat: lat, lng: lng }}
-                        icon={
-                          lat === mapLocation.lat && lng === mapLocation.lng
-                            ? {
-                                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-                              }
-                            : {
-                                url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-                              }
-                        }
-                      />
-                    ))}
-                  </GoogleMap>
-                </LoadScript>
-              ) : (
-                <div>Api key is invalid or expires</div>
-              )}
+                    <Popup>{`Latitude: ${lat} and Longitude: ${lng}`}</Popup>
+                  </Marker>
+                ))}
+              </MapContainer>
             </div>
           </section>
 
           <section className="h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
               <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
-                Wind Speed
+                Wind Speed {locationAddress && `at ${locationAddress}`}
               </h1>
 
               <p className="text-terra-white h- mb-2">
@@ -119,7 +118,8 @@ export default function Dashboard() {
           <section className="h-[95vh] bg-terra w-full lg:w-full md:w-full p-4 rounded-lg shadow-lg">
             <div className="w-full h-[25%]">
               <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
-                Soil Skin Temperature
+                Soil Skin Temperature{" "}
+                {locationAddress && `at ${locationAddress}`}
               </h1>
 
               <p className="text-terra-white mb-2">
@@ -135,7 +135,8 @@ export default function Dashboard() {
           <section className="h-[100vh] lg:h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="w-full h-[20%]">
               <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
-                Humidity and Precipitation
+                Humidity and Precipitation{" "}
+                {locationAddress && `at ${locationAddress}`}
               </h1>
 
               <p className="text-terra-white mb-2">
@@ -198,7 +199,7 @@ export default function Dashboard() {
           <section className="h-[95vh] w-full lg:w-full mb-[80px] lg:mb-auto md:w-full bg-terra p-4 rounded-lg shadow-lg">
             <div className="h-[25%]">
               <h1 className="text-terra-white font-blade text-xl md:text-2xl lg:text-2xl">
-                Soil Wetness
+                Soil Wetness {locationAddress && `at ${locationAddress}`}
               </h1>
 
               <p className="text-terra-white mb-2">

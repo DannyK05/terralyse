@@ -1,39 +1,25 @@
 "use client";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import "leaflet/dist/leaflet.css";
 import AppLayout from "@/layout/layout";
 import LogoIcon from "@/app/assets/svgs/LogoIcon";
-import { getPrediction, prediction } from "@/utilities/hooks/Prediction";
-import Flood from "../../app/assets/svgs/flood.svg";
-import Drought from "../../app/assets/svgs/drought.svg";
-import Plant from "../../app/assets/svgs/plant.svg";
+// import { getPrediction, prediction } from "@/utilities/hooks/Prediction";
+// import Flood from "../../app/assets/svgs/flood.svg";
+// import Drought from "../../app/assets/svgs/drought.svg";
+// import Plant from "../../app/assets/svgs/plant.svg";
+import { MapContainer, TileLayer } from "react-leaflet";
 export default function Map() {
-  const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
   const center = {
     lat: 10.25,
     lng: 10.25,
   };
 
-  const containerStyle = {
-    width: "100%",
-    height: "600px",
-  };
-
-  if (!mapKey) {
-    return (
-      <div>
-        Error: Google Maps API key is missing. Please add it to the environment
-        variables.
-      </div>
-    );
-  }
   const getResult = () => {
-    getPrediction();
-    console.log(prediction);
+    // getPrediction();
+    // console.log(prediction);
   };
   return (
     <AppLayout activePage="map">
-      <section className="flex flex-col items-center space-y-2 mb-[80px] ">
+      <section className="flex flex-col items-center space-y-5 mb-[80px] ">
         <div className="w-full flex items-center justify-between lg:block bg-terra text-center p-4 mb-4 shadow-lg">
           <span className="fill-white lg:hidden w-1/5">
             <LogoIcon />
@@ -47,13 +33,17 @@ export default function Map() {
         >
           Get Prediction
         </button>
-        <LoadScript googleMapsApiKey={mapKey}>
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={10}
-          >
-            {/* {prediction.length !== 0 &&
+        <MapContainer
+          className="h-[600px] w-full"
+          center={[center.lat, center.lng]}
+          zoom={13}
+          scrollWheelZoom={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {/* {prediction.length !== 0 &&
               prediction.map(
                 (coord) =>
                   coord.drought > 50 && (
@@ -83,10 +73,11 @@ export default function Map() {
                         url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
                       }}
                     />
+                    
+            
                   
               )} */}
-          </GoogleMap>
-        </LoadScript>
+        </MapContainer>
       </section>
     </AppLayout>
   );

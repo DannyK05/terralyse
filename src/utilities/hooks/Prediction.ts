@@ -1,12 +1,12 @@
-import { soil_temp } from "../data/soil-temp";
-import { soil_wetness } from "../data/soil-wetness";
-import { wind_speed } from "../data/wind-speed";
+import { soilTemp } from "../data/soil-temp";
+import { soilWetness } from "../data/soil-wetness";
+import { windSpeed } from "../data/wind-speed";
 import { coordinate } from "../data/coordinate";
 import { humidity } from "../data/humidity";
-import { TSoilTemp } from "../../modules/dashboard/components/SoilTempGraph";
-import { TSoilWetness } from "../../modules/dashboard/components/SoilWetnessGraph";
-import { TWindSpeed } from "../../modules/dashboard/components/WindSpeedGraph";
-import { THumidity } from "../../modules/dashboard/components/HumidityGraph";
+import {
+  TSoilDataType,
+  TSoilDataTypeWithParams,
+} from "@/modules/dashboard/types";
 
 export const prediction: {
   lat: number;
@@ -21,14 +21,14 @@ export const prediction: {
   sumAveragePrecipitation: number;
 }[] = [];
 
-const soilTemp: TSoilTemp = [];
-const topSoilWetness: TSoilWetness = [];
-const windSpeed: TWindSpeed = [];
-const specificHumidity: THumidity = [];
-const rootSoilWetness: TSoilWetness = [];
-const relativeHumidity: THumidity = [];
-const averagePrecipitation: THumidity = [];
-const sumAveragePrecipitation: THumidity = [];
+const soilTempFilter: TSoilDataTypeWithParams = [];
+const topSoilWetnessFilter: TSoilDataTypeWithParams = [];
+const windSpeedFilter: TSoilDataType = [];
+const specificHumidityFilter: TSoilDataTypeWithParams = [];
+const rootSoilWetnessFilter: TSoilDataTypeWithParams = [];
+const relativeHumidityFilter: TSoilDataTypeWithParams = [];
+const averagePrecipitationFilter: TSoilDataTypeWithParams = [];
+const sumAveragePrecipitationFilter: TSoilDataTypeWithParams = [];
 
 // const droughtSoilTemp = 35;
 // const droughtWindSpeed = 10;
@@ -57,28 +57,28 @@ const sumAveragePrecipitation: THumidity = [];
 // const farmingAveragePrecipitation = 10;
 // const farmingSumAveragePrecipitation = 150;
 
-soil_temp.find((data) => {
+soilTemp.find((data) => {
   if (data.YEAR === 2020 || data.YEAR === 2021) {
     soilTemp.push(data);
   }
 });
 
-soil_wetness.find((data) => {
+soilWetness.find((data) => {
   if (
     (data.PARAMETER === "topSoil" && data.YEAR === 2020) ||
     (data.YEAR === 2021 && data.PARAMETER === "topSoil")
   ) {
-    topSoilWetness.push(data);
+    topSoilWetnessFilter.push(data);
   }
   if (
     (data.PARAMETER === "rootSoil" && data.YEAR === 2020) ||
     (data.YEAR === 2021 && data.PARAMETER === "rootSoil")
   ) {
-    rootSoilWetness.push(data);
+    rootSoilWetnessFilter.push(data);
   }
 });
 
-wind_speed.find((data) => {
+windSpeed.find((data) => {
   if (data.YEAR === 2020 || data.YEAR === 2021) {
     windSpeed.push(data);
   }
@@ -89,25 +89,25 @@ humidity.find((data) => {
     (data.PARAMETER === "specificHumidity" && data.YEAR === 2020) ||
     (data.PARAMETER === "specificHumidity" && data.YEAR === 2021)
   ) {
-    specificHumidity.push(data);
+    specificHumidityFilter.push(data);
   }
   if (
     (data.PARAMETER === "relativeHumidity" && data.YEAR === 2020) ||
     (data.PARAMETER === "relativeHumidity" && data.YEAR === 2021)
   ) {
-    relativeHumidity.push(data);
+    relativeHumidityFilter.push(data);
   }
   if (
     (data.PARAMETER === "averagePrecipitation" && data.YEAR === 2020) ||
     (data.PARAMETER === "averagePrecipitation" && data.YEAR === 2021)
   ) {
-    averagePrecipitation.push(data);
+    averagePrecipitationFilter.push(data);
   }
   if (
     (data.PARAMETER === "sumAveragePrecipitation" && data.YEAR === 2020) ||
     (data.PARAMETER === "sumAveragePrecipitation" && data.YEAR === 2021)
   ) {
-    sumAveragePrecipitation.push(data);
+    sumAveragePrecipitationFilter.push(data);
   }
 });
 console.log(soilTemp);
@@ -115,35 +115,35 @@ console.log(soilTemp);
 export const getPrediction = () => {
   for (let i = 0; i < coordinate.length; i++) {
     const selectedCoordinate = coordinate[i];
-    const selectedSpecificHumidity = specificHumidity.find(
+    const selectedSpecificHumidity = specificHumidityFilter?.find(
       ({ LAT, LON }) =>
         selectedCoordinate.lat === LAT && selectedCoordinate.lng === LON
     );
-    const selectedRelativeHumidity = relativeHumidity.find(
+    const selectedRelativeHumidity = relativeHumidityFilter?.find(
       ({ LAT, LON }) =>
         selectedCoordinate.lat === LAT && selectedCoordinate.lng === LON
     );
-    const selectedSoilTemp = soilTemp.find(
+    const selectedSoilTemp = soilTempFilter?.find(
       ({ LAT, LON }) =>
         selectedCoordinate.lat === LAT && selectedCoordinate.lng === LON
     );
-    const selectedWindSpeed = windSpeed.find(
+    const selectedWindSpeed = windSpeedFilter?.find(
       ({ LAT, LON }) =>
         selectedCoordinate.lat === LAT && selectedCoordinate.lng === LON
     );
-    const selectedTopSoilWetness = topSoilWetness.find(
+    const selectedTopSoilWetness = topSoilWetnessFilter?.find(
       ({ LAT, LON }) =>
         selectedCoordinate.lat === LAT && selectedCoordinate.lng === LON
     );
-    const selectedRootSoilWetness = rootSoilWetness.find(
+    const selectedRootSoilWetness = rootSoilWetnessFilter.find(
       ({ LAT, LON }) =>
         selectedCoordinate.lat === LAT && selectedCoordinate.lng === LON
     );
-    const selectedAveragePrecipitation = averagePrecipitation.find(
+    const selectedAveragePrecipitation = averagePrecipitationFilter.find(
       ({ LAT, LON }) =>
         selectedCoordinate.lat === LAT && selectedCoordinate.lng === LON
     );
-    const selectedSumAveragePrecipitation = sumAveragePrecipitation.find(
+    const selectedSumAveragePrecipitation = sumAveragePrecipitationFilter.find(
       ({ LAT, LON }) =>
         selectedCoordinate.lat === LAT && selectedCoordinate.lng === LON
     );
