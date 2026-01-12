@@ -4,7 +4,8 @@ import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { months } from "../data";
 import { Line } from "react-chartjs-2";
-import { colors } from "../../../utilities/data/chart-colors";
+
+import { generateChartData } from "@/utilities/helper";
 import type { TGraphProps, TSoilDataType } from "../types";
 
 export default function SoilTempGraph({
@@ -23,40 +24,10 @@ export default function SoilTempGraph({
     }
   });
 
-  const getYearColor = (YEAR: number) => {
-    const yearColor = colors.find((color) => color.year === YEAR);
-    return yearColor?.color;
-  };
-
   Chart.register(CategoryScale);
   const chartData = {
     labels: months,
-    datasets: soilTempData.map(
-      ({
-        YEAR,
-        JAN,
-        FEB,
-        MAR,
-        APR,
-        MAY,
-        JUN,
-        JUL,
-        AUG,
-        SEP,
-        OCT,
-        NOV,
-        DEC,
-      }) => {
-        return {
-          label: `${YEAR}`,
-          data: [JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC],
-          borderColor: getYearColor(YEAR),
-          backgroundColor: getYearColor(YEAR),
-          borderWidth: 3,
-          fill: false,
-        };
-      }
-    ),
+    datasets: generateChartData(soilTempData),
   };
 
   const options = {

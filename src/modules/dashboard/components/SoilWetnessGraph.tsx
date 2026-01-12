@@ -1,10 +1,11 @@
 "use client";
-import { soilWetness } from "../../../utilities/data/soil-wetness";
 import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
-import { months } from "../data";
 import { Line } from "react-chartjs-2";
-import { colors } from "../../../utilities/data/chart-colors";
+
+import { generateChartData, getYearColor } from "@/utilities/helper";
+import { soilWetness } from "../../../utilities/data/soil-wetness";
+import { months } from "../data";
 import type { TGraphProps, TSoilDataTypeWithParams } from "../types";
 
 export default function SoilWetnessGraph({
@@ -28,40 +29,10 @@ export default function SoilWetnessGraph({
     }
   });
 
-  const getYearColor = (YEAR: number) => {
-    const yearColor = colors.find((color) => color.year === YEAR);
-    return yearColor?.color;
-  };
-
   Chart.register(CategoryScale);
   const chartData = {
     labels: months,
-    datasets: soilWetnessData.map(
-      ({
-        YEAR,
-        JAN,
-        FEB,
-        MAR,
-        APR,
-        MAY,
-        JUN,
-        JUL,
-        AUG,
-        SEP,
-        OCT,
-        NOV,
-        DEC,
-      }) => {
-        return {
-          label: `${YEAR}`,
-          data: [JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC],
-          borderColor: getYearColor(YEAR),
-          backgroundColor: getYearColor(YEAR),
-          borderWidth: 3,
-          fill: false,
-        };
-      }
-    ),
+    datasets: generateChartData(soilWetnessData),
   };
 
   const options = {
