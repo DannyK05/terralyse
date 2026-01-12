@@ -5,21 +5,13 @@ import { CategoryScale } from "chart.js";
 import { months } from "../data";
 import { Line } from "react-chartjs-2";
 import { colors } from "../../../utilities/data/chart-colors";
-import { TSoilDataTypeWithParams } from "../types";
+import type { TGraphProps, TSoilDataTypeWithParams } from "../types";
 
 export default function HumidityGraph({
   lat = 10.25,
   lng = 10.25,
-  param = "specificHumidity",
-}: {
-  lat: number;
-  lng: number;
-  param:
-    | "specificHumidity"
-    | "relativeHumidity"
-    | "averagePrecipitation"
-    | "sumAveragePrecipitation";
-}) {
+  param = "specific-humidity",
+}: TGraphProps) {
   const humidityData: TSoilDataTypeWithParams = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
@@ -38,14 +30,14 @@ export default function HumidityGraph({
 
   const getYAxisName = () => {
     switch (param) {
-      case "specificHumidity":
+      case "specific-humidity":
         return "Specific Humidity";
         break;
-      case "relativeHumidity":
+      case "relative-humidity":
         return "Relative Humidity";
-      case "averagePrecipitation":
+      case "average-precipitation":
         return "Average Precipitation";
-      case "sumAveragePrecipitation":
+      case "sum-average-precipitation":
         return "Sum Average Precipitation";
       default:
         break;

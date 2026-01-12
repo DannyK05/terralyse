@@ -5,15 +5,12 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { months } from "../data";
 import { colors } from "../../../utilities/data/chart-colors";
-import { TSoilDataType } from "../types";
+import type { TGraphProps, TSoilDataType } from "../types";
 
 export default function WindSpeedGraph({
   lat = 10.25,
   lng = 10.25,
-}: {
-  lat: number;
-  lng: number;
-}) {
+}: TGraphProps) {
   const windSpeedData: TSoilDataType = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;

@@ -5,17 +5,13 @@ import { CategoryScale } from "chart.js";
 import { months } from "../data";
 import { Line } from "react-chartjs-2";
 import { colors } from "../../../utilities/data/chart-colors";
-import { TSoilDataTypeWithParams } from "../types";
+import type { TGraphProps, TSoilDataTypeWithParams } from "../types";
 
 export default function SoilWetnessGraph({
   lat = 10.25,
   lng = 10.25,
-  param = "topSoil",
-}: {
-  lat: number;
-  lng: number;
-  param?: "topSoil" | "rootSoil";
-}) {
+  param = "top-soil",
+}: TGraphProps) {
   const soilWetnessData: TSoilDataTypeWithParams = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
@@ -75,7 +71,7 @@ export default function SoilWetnessGraph({
         title: {
           display: true,
           text: `${
-            param === "topSoil"
+            param === "top-soil"
               ? "Surface Soil Wetness"
               : "Root Soil Wetness (10m)"
           }`, // Y-axis label
