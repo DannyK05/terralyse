@@ -3,7 +3,7 @@ import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
-import { generateChartData} from "@/utilities/helper";
+import { generateChartData } from "@/utilities/helper";
 import { windSpeed } from "../../../utilities/data/wind-speed";
 import { months } from "../data";
 import type { TGraphProps, TSoilDataType } from "../types";
@@ -27,7 +27,7 @@ export default function WindSpeedGraph({
   Chart.register(CategoryScale);
   const chartData = {
     labels: months,
-    datasets: generateChartData(windSpeedData)
+    datasets: generateChartData(windSpeedData),
   };
 
   const options = {
@@ -50,9 +50,5 @@ export default function WindSpeedGraph({
     responsive: true,
   };
 
-  return (
-    <div className="bg-terra-white p-2 h-full">
-      <Line data={chartData} options={options} />
-    </div>
-  );
+  return <Line data={chartData} options={options} />;
 }

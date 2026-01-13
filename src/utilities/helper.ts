@@ -1,8 +1,8 @@
-import {
+import { colors } from "./data/chart-colors";
+import type {
   TSoilDataType,
   TSoilDataTypeWithParams,
 } from "@/modules/dashboard/types";
-import { colors } from "./data/chart-colors";
 
 export const convertHypenStringToRegular = (text: string) => {
   const regularText = text.split("-");

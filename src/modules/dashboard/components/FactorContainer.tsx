@@ -28,25 +28,26 @@ export default function FactorsContainer({
     useState<THumidityParams>("specific-humidity");
 
   return (
-    <section className="h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
-      <div className="w-full h-[25%]">
-        <h1 className="text-terra-black text-center font-blade text-xl md:text-2xl lg:text-2xl">
+    <section className="w-full flex items-start space-y-2 flex-col h-[62vh] lg:w-full md:w-full p-4 rounded-lg bg-terra-white border border-terra  shadow-lg">
+      <div className="flex flex-col items-start space-y-1">
+        <h1 className="text-terra-black text-center text-xl md:text-2xl lg:text-2xl">
           {name}
-          <span className="text-sm">{location && ` at (${location})`}</span>
         </h1>
-
+        <span className="text-sm text-terra font-semibold">
+          {location && `Location: (${location})`}
+        </span>
         <p className="text-terra-black mb-2">{description}</p>
       </div>
 
       {name === "Humidity and Precipitation" && (
-        <div className="flex flex-wrap items-center space-y-1 space-x-2">
+        <div className="flex w-full items-center mb-2 space-x-4">
           {humidityParams.map((param, id) => (
             <span
               key={id}
               className={`${
                 humidityParam === param &&
                 "bg-terra-accent-bg text-terra font-bold"
-              } w-[45%] lg:w-[23%] p-2 bg-terra-white capitalize rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
+              } p-2 bg-terra-white capitalize rounded-lg text-sm text-center border border-terra cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
               onClick={() => setHumidityParam(param)}
             >
               {convertHypenStringToRegular(param)}
@@ -56,14 +57,14 @@ export default function FactorsContainer({
       )}
 
       {name === "Soil Wetness" && (
-        <div className="flex flex-wrap items-center space-y-1 space-x-2">
+        <div className="flex w-full items-center space-y-1 space-x-2 mb-2">
           {soilWetnessParams.map((param, id) => (
             <span
               key={id}
               className={`${
                 wetnessParam === param &&
                 "bg-terra-accent-bg text-terra font-bold"
-              } w-[45%] lg:w-[23%] p-2 bg-terra-white capitalize rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
+              } p-2 bg-terra-white capitalize rounded-lg text-sm text-center border border-terra cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
               onClick={() => setWetnessParam(param)}
             >
               {convertHypenStringToRegular(param)}
@@ -72,7 +73,7 @@ export default function FactorsContainer({
         </div>
       )}
 
-      <div className="h-3/4 mt-3">
+      <div className="border w-full rounded-md bg-terra-white h-full">
         <Graph
           param={
             name === "Soil Wetness"

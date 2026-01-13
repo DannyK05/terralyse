@@ -60,17 +60,20 @@ export default function Dashboard() {
           <span className="fill-white mr-4 lg:hidden w-1/5">
             <LogoIcon />
           </span>
-          <h1 className="text-xl text-terra-black md:text-2xl lg:text-3xl">
+          <h1 className="text-xl text-terra-white md:text-2xl lg:text-3xl">
             Northen - Nigeria Analysis Dashboard
           </h1>
         </div>
 
-        <div className="w-full flex flex-col items-center space-y-2 ">
-          <section className="bg-terra flex flex-col items-center space-y-2 w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
-            <h1 className="text-terra-black text-center font-blade text-xl md:text-2xl lg:text-2xl">
+        <div className="w-full flex flex-col items-center space-y-4 ">
+          <section className="flex flex-col items-start border border-terra space-y-2 bg-terra-white w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
+            <h1 className="text-terra-black text-center text-xl md:text-2xl lg:text-2xl">
               Map Selection
             </h1>
-            <div className="w-full h-1/4">
+            <p className="text-gray-500 text-lg">
+              Click any of the markers to get the analysis of the selected area
+            </p>
+            <div className="w-full bg-terra-white p-3 border rounded-md h-1/4">
               <MapContainer
                 className="h-[300px] w-full"
                 center={[mapLocation.lat, mapLocation.lng]}
@@ -99,7 +102,7 @@ export default function Dashboard() {
             </div>
           </section>
 
-          <>
+          <div className="w-full grid grid-cols-2 gap-2">
             {soilFactors.map((soilFactor, id) => (
               <FactorContainer
                 key={id}
@@ -109,7 +112,7 @@ export default function Dashboard() {
                 {...soilFactor}
               />
             ))}
-          </>
+          </div>
         </div>
       </>
     </AppLayout>

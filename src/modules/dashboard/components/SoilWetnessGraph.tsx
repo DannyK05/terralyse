@@ -3,7 +3,7 @@ import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-import { generateChartData, getYearColor } from "@/utilities/helper";
+import { generateChartData } from "@/utilities/helper";
 import { soilWetness } from "../../../utilities/data/soil-wetness";
 import { months } from "../data";
 import type { TGraphProps, TSoilDataTypeWithParams } from "../types";
@@ -59,9 +59,5 @@ export default function SoilWetnessGraph({
     responsive: true,
   };
 
-  return (
-    <div className="bg-terra-white p-2 h-full">
-      <Line data={chartData} options={options} />
-    </div>
-  );
+  return <Line data={chartData} options={options} />;
 }

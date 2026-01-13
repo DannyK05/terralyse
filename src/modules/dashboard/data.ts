@@ -40,28 +40,28 @@ export const soilFactors: TSoilFactor[] = [
   {
     name: "Wind Speed",
     description:
-      "Wind speed plays a vtal role in pollination and soil erosion and irrigation efficiency",
+      "This plays a vital role in pollination and soil erosion and irrigation efficiency",
     Graph: WindSpeedGraph,
     hasParams: false,
   },
   {
     name: "Soil Skin Temperature",
     description:
-      "It plays a role in seed germination, heat stress in crops and soil microbial activity",
+      "This plays a role in seed germination, heat stress in crops and soil microbial activity",
     Graph: SoilTempGraph,
     hasParams: false,
   },
   {
     name: "Humidity and Precipitation",
     description:
-      "They play a vital role in prediciting rainfall, plant growth and soil moisture retention",
+      "These play a vital role in prediciting rainfall, plant growth and soil moisture retention",
     Graph: HumidityGraph,
     hasParams: true,
   },
   {
     name: "Soil Wetness",
     description:
-      " Soil Wetness helps in plant growth and water absorption and could be a indication of constant rainfall",
+      "This helps in plant growth and water absorption and could be a indication of constant rainfall",
     Graph: SoilWetnessGraph,
     hasParams: true,
   },

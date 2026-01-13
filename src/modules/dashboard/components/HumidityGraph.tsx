@@ -47,7 +47,7 @@ export default function HumidityGraph({
   Chart.register(CategoryScale);
   const chartData = {
     labels: months,
-    datasets: generateChartData(humidityData)
+    datasets: generateChartData(humidityData),
   };
 
   const options = {
@@ -70,9 +70,5 @@ export default function HumidityGraph({
     responsive: true,
   };
 
-  return (
-    <div className="bg-terra-white p-2 h-full">
-      <Line data={chartData} options={options} />
-    </div>
-  );
+  return <Line data={chartData} options={options} />;
 }
