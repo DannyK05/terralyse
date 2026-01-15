@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+
+import { convertHypenStringToRegular } from "@/utilities/helper";
+import ParamTag from "@/components/ParamTag";
+
+import { humidityParams, soilWetnessParams } from "../data";
 import type {
   THumidityParams,
   TSoilFactor,
   TSoilWetnessParams,
 } from "../types";
-import { humidityParams, soilWetnessParams } from "../data";
-import { convertHypenStringToRegular } from "@/utilities/helper";
 
 type FactorsContainerProps = TSoilFactor & {
   location?: string;
@@ -42,38 +45,32 @@ export default function FactorsContainer({
       {name === "Humidity and Precipitation" && (
         <div className="flex w-full items-center mb-2 space-x-4">
           {humidityParams.map((param, id) => (
-            <span
+            <ParamTag
               key={id}
-              className={`${
-                humidityParam === param &&
-                "bg-terra-accent-bg text-terra font-bold"
-              } p-2 bg-terra-white capitalize rounded-lg text-sm text-center border border-terra cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
               onClick={() => setHumidityParam(param)}
+              condition={humidityParam === param}
             >
               {convertHypenStringToRegular(param)}
-            </span>
+            </ParamTag>
           ))}
         </div>
       )}
 
       {name === "Soil Wetness" && (
-        <div className="flex w-full items-center space-y-1 space-x-2 mb-2">
+        <div className="w-full flex items-center space-x-2 mb-2">
           {soilWetnessParams.map((param, id) => (
-            <span
+            <ParamTag
               key={id}
-              className={`${
-                wetnessParam === param &&
-                "bg-terra-accent-bg text-terra font-bold"
-              } p-2 bg-terra-white capitalize rounded-lg text-sm text-center border border-terra cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
               onClick={() => setWetnessParam(param)}
+              condition={wetnessParam === param}
             >
               {convertHypenStringToRegular(param)}
-            </span>
+            </ParamTag>
           ))}
         </div>
       )}
 
-      <div className="border w-full rounded-md bg-terra-white h-full">
+      <div className="bg-terra-white h-full w-full rounded-md border">
         <Graph
           param={
             name === "Soil Wetness"

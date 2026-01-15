@@ -56,8 +56,8 @@ export default function Dashboard() {
   return (
     <AppLayout activePage="dashboard">
       <>
-        <div className=" bg-terra w-full flex items-center space-between lg:block lg:w-auto text-center p-4 mb-4 shadow-lg">
-          <span className="fill-white mr-4 lg:hidden w-1/5">
+        <div className="bg-terra w-full flex items-center space-between p-4 mb-4 text-center shadow-lg lg:block lg:w-auto">
+          <span className="w-1/5 mr-4 fill-white lg:hidden">
             <LogoIcon />
           </span>
           <h1 className="text-xl text-terra-white md:text-2xl lg:text-3xl">
@@ -66,14 +66,15 @@ export default function Dashboard() {
         </div>
 
         <div className="w-full flex flex-col items-center space-y-4 ">
-          <section className="flex flex-col items-start border border-terra space-y-2 bg-terra-white w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
+          <section className="bg-terra-white w-full flex flex-col items-start space-y-2 border border-terra p-4 rounded-lg lg:w-full md:w-full lg:col-span-2">
             <h1 className="text-terra-black text-center text-xl md:text-2xl lg:text-2xl">
               Map Selection
             </h1>
             <p className="text-gray-500 text-lg">
               Click any of the markers to get the analysis of the selected area
             </p>
-            <div className="w-full bg-terra-white p-3 border rounded-md h-1/4">
+
+            <div className="bg-terra-white w-full h-1/4 p-3 border rounded-md">
               <MapContainer
                 className="h-[300px] w-full"
                 center={[mapLocation.lat, mapLocation.lng]}
