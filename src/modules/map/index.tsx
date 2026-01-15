@@ -1,25 +1,14 @@
 "use client";
-import "leaflet/dist/leaflet.css";
 import AppLayout from "@/layout/layout";
-import LogoIcon from "@/app/assets/svgs/LogoIcon";
-// import { getPrediction, prediction } from "@/utilities/hooks/Prediction";
-// import Flood from "../../app/assets/svgs/flood.svg";
-// import Drought from "../../app/assets/svgs/drought.svg";
-// import Plant from "../../app/assets/svgs/plant.svg";
-import { MapContainer, TileLayer } from "react-leaflet";
 export default function Map() {
-  const center = {
-    lat: 10.25,
-    lng: 10.25,
-  };
-
-  const getResult = () => {
-    // getPrediction();
-    // console.log(prediction);
-  };
   return (
     <AppLayout activePage="map">
-      <section className="flex flex-col items-center space-y-5 mb-[80px] ">
+      <section className="h-full flex flex-col items-center justify-center">
+        <h1 className="text-terra">This page has been discontinued.</h1>
+        <p className="text-black text-sm">Something new is coming</p>
+      </section>
+
+      {/* <section className="flex flex-col items-center space-y-5 mb-[80px] ">
         <div className="w-full flex items-center justify-between lg:block bg-terra text-center p-4 mb-4 shadow-lg">
           <span className="fill-white lg:hidden w-1/5">
             <LogoIcon />
@@ -43,7 +32,7 @@ export default function Map() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {/* {prediction.length !== 0 &&
+          {prediction.length !== 0 &&
               prediction.map(
                 (coord) =>
                   coord.drought > 50 && (
@@ -74,9 +63,9 @@ export default function Map() {
                       }}
                     />
                   
-              )} */}
+              )}
         </MapContainer>
-      </section>
+      </section> */}
     </AppLayout>
   );
 }
