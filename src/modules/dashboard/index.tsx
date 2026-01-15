@@ -56,7 +56,7 @@ export default function Dashboard() {
   return (
     <AppLayout activePage="dashboard">
       <>
-        <div className="bg-terra w-full flex items-center space-between p-4 mb-4 text-center shadow-lg lg:block lg:w-auto">
+        <div className="bg-terra w-full flex items-center space-between mb-4 text-center shadow-lg p-4 lg:block lg:w-auto">
           <span className="w-1/5 mr-4 fill-white lg:hidden">
             <LogoIcon />
           </span>
@@ -103,7 +103,7 @@ export default function Dashboard() {
             </div>
           </section>
 
-          <div className="w-full grid grid-cols-2 gap-2">
+          <div className="w-full grid grid-cols-1 gap-y-2 lg:grid-cols-2 lg:gap-2">
             {soilFactors.map((soilFactor, id) => (
               <FactorContainer
                 key={id}

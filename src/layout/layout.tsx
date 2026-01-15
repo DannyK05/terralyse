@@ -15,8 +15,8 @@ export default function AppLayout({
 }: Readonly<{ children: React.ReactNode; activePage: "dashboard" | "map" }>) {
   const router = useRouter();
   return (
-    <div className="h-screen flex items-center space-x-4">
-      <nav className="h-[12vh] w-screen z-10 flex items-center bg-terra lg:w-1/5 lg:h-full lg:top-0 lg:flex-col">
+    <div className="h-screen flex items-center flex-col-reverse px-1 lg:flex-row lg:space-x-4">
+      <nav className="bg-terra w-full fixed bottom-0 left-0 z-10 flex items-center border-t-2 border-terra lg:static lg:w-1/5 lg:h-full lg:top-0 lg:flex-col lg:border-none">
         <span
           onClick={() => router.push("/")}
           className="hidden w-1/2 fill-terra-accent-bg mb-[80px] py-5 cursor-pointer lg:block lg:hover:fill-terra-white"
@@ -58,7 +58,9 @@ export default function AppLayout({
         </p>
       </nav>
 
-      <main className="w-full overflow-y-scroll h-screen p-2">{children}</main>
+      <main className="w-full h-screen overflow-y-scroll pb-[80px] lg:p-2">
+        {children}
+      </main>
     </div>
   );
 }

@@ -31,7 +31,7 @@ export default function FactorsContainer({
     useState<THumidityParams>("specific-humidity");
 
   return (
-    <section className="w-full flex items-start space-y-2 flex-col h-[62vh] lg:w-full md:w-full p-4 rounded-lg bg-terra-white border border-terra  shadow-lg">
+    <section className="h-[100vh] w-full flex items-start space-y-2 flex-col p-4 rounded-lg bg-terra-white border border-terra shadow-lg md:w-full lg:w-full lg:h-[62vh]">
       <div className="flex flex-col items-start space-y-1">
         <h1 className="text-terra-black text-center text-xl md:text-2xl lg:text-2xl">
           {name}
@@ -43,7 +43,7 @@ export default function FactorsContainer({
       </div>
 
       {name === "Humidity and Precipitation" && (
-        <div className="flex w-full items-center mb-2 space-x-4">
+        <div className="w-full flex items-center flex-wrap mb-2 space-x-4 space-y-2">
           {humidityParams.map((param, id) => (
             <ParamTag
               key={id}
