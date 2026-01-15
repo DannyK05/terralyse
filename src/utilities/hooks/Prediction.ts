@@ -65,14 +65,14 @@ soilTemp.find((data) => {
 
 soilWetness.find((data) => {
   if (
-    (data.PARAMETER === "topSoil" && data.YEAR === 2020) ||
-    (data.YEAR === 2021 && data.PARAMETER === "topSoil")
+    (data.PARAMETER === "top-soil" && data.YEAR === 2020) ||
+    (data.YEAR === 2021 && data.PARAMETER === "top-soil")
   ) {
     topSoilWetnessFilter.push(data);
   }
   if (
-    (data.PARAMETER === "rootSoil" && data.YEAR === 2020) ||
-    (data.YEAR === 2021 && data.PARAMETER === "rootSoil")
+    (data.PARAMETER === "root-soil" && data.YEAR === 2020) ||
+    (data.YEAR === 2021 && data.PARAMETER === "root-soil")
   ) {
     rootSoilWetnessFilter.push(data);
   }
@@ -86,26 +86,26 @@ windSpeed.find((data) => {
 
 humidity.find((data) => {
   if (
-    (data.PARAMETER === "specificHumidity" && data.YEAR === 2020) ||
-    (data.PARAMETER === "specificHumidity" && data.YEAR === 2021)
+    (data.PARAMETER === "specific-humidity" && data.YEAR === 2020) ||
+    (data.PARAMETER === "specific-humidity" && data.YEAR === 2021)
   ) {
     specificHumidityFilter.push(data);
   }
   if (
-    (data.PARAMETER === "relativeHumidity" && data.YEAR === 2020) ||
-    (data.PARAMETER === "relativeHumidity" && data.YEAR === 2021)
+    (data.PARAMETER === "relative-humidity" && data.YEAR === 2020) ||
+    (data.PARAMETER === "relative-humidity" && data.YEAR === 2021)
   ) {
     relativeHumidityFilter.push(data);
   }
   if (
-    (data.PARAMETER === "averagePrecipitation" && data.YEAR === 2020) ||
-    (data.PARAMETER === "averagePrecipitation" && data.YEAR === 2021)
+    (data.PARAMETER === "average-precipitation" && data.YEAR === 2020) ||
+    (data.PARAMETER === "average-precipitation" && data.YEAR === 2021)
   ) {
     averagePrecipitationFilter.push(data);
   }
   if (
-    (data.PARAMETER === "sumAveragePrecipitation" && data.YEAR === 2020) ||
-    (data.PARAMETER === "sumAveragePrecipitation" && data.YEAR === 2021)
+    (data.PARAMETER === "sum-average-precipitation" && data.YEAR === 2020) ||
+    (data.PARAMETER === "sum-average-precipitation" && data.YEAR === 2021)
   ) {
     sumAveragePrecipitationFilter.push(data);
   }

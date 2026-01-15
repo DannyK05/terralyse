@@ -1,19 +1,17 @@
 "use client";
-import { windSpeed } from "../../../utilities/data/wind-speed";
 import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+
+import { generateChartData } from "@/utilities/helper";
+import { windSpeed } from "../../../utilities/data/wind-speed";
 import { months } from "../data";
-import { colors } from "../../../utilities/data/chart-colors";
-import { TSoilDataType } from "../types";
+import type { TGraphProps, TSoilDataType } from "../types";
 
 export default function WindSpeedGraph({
   lat = 10.25,
   lng = 10.25,
-}: {
-  lat: number;
-  lng: number;
-}) {
+}: TGraphProps) {
   const windSpeedData: TSoilDataType = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
@@ -26,40 +24,10 @@ export default function WindSpeedGraph({
     }
   });
 
-  const getYearColor = (YEAR: number) => {
-    const yearColor = colors.find((color) => color.year === YEAR);
-    return yearColor?.color;
-  };
-
   Chart.register(CategoryScale);
   const chartData = {
     labels: months,
-    datasets: windSpeedData.map(
-      ({
-        YEAR,
-        JAN,
-        FEB,
-        MAR,
-        APR,
-        MAY,
-        JUN,
-        JUL,
-        AUG,
-        SEP,
-        OCT,
-        NOV,
-        DEC,
-      }) => {
-        return {
-          label: `${YEAR}`,
-          data: [JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC],
-          borderColor: getYearColor(YEAR),
-          backgroundColor: getYearColor(YEAR),
-          borderWidth: 3,
-          fill: false,
-        };
-      }
-    ),
+    datasets: generateChartData(windSpeedData),
   };
 
   const options = {
@@ -82,9 +50,5 @@ export default function WindSpeedGraph({
     responsive: true,
   };
 
-  return (
-    <div className="bg-terra-white p-2 h-full">
-      <Line data={chartData} options={options} />
-    </div>
-  );
+  return <Line data={chartData} options={options} />;
 }

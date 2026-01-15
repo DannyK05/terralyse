@@ -4,17 +4,15 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
 import AppLayout from "@/layout/layout";
-import HumidityGraph from "./components/HumidityGraph";
-import SoilTempGraph from "./components/SoilTempGraph";
-import SoilWetnessGraph from "./components/SoilWetnessGraph";
-import WindSpeedGraph from "./components/WindSpeedGraph";
 import { coordinate } from "../../utilities/data/coordinate";
 import LogoIcon from "@/app/assets/svgs/LogoIcon";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import FactorContainer from "./components/FactorContainer";
 // Fix marker icons for Next.js
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import { soilFactors } from "./data";
 
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: () => string })
   ._getIconUrl;
@@ -34,17 +32,6 @@ export default function Dashboard() {
     "Galambi, Bauchi, Bauchi State, Nigeria"
   );
   const apiKey = process.env.NEXT_PUBLIC_LOCATION_IQ_KEY;
-
-  const [wetnessParam, setWetnessParam] = useState<"topSoil" | "rootSoil">(
-    "topSoil"
-  );
-
-  const [humidityParam, setHumidityParam] = useState<
-    | "specificHumidity"
-    | "relativeHumidity"
-    | "averagePrecipitation"
-    | "sumAveragePrecipitation"
-  >("specificHumidity");
 
   const generateAddress = async (lat: number, lon: number) => {
     const options = {
@@ -69,8 +56,8 @@ export default function Dashboard() {
   return (
     <AppLayout activePage="dashboard">
       <>
-        <div className=" bg-terra w-full flex items-center space-between lg:block lg:w-auto text-center p-4 mb-4 shadow-lg">
-          <span className="fill-white mr-4 lg:hidden w-1/5">
+        <div className="bg-terra w-full flex items-center space-between mb-4 text-center shadow-lg p-4 lg:block lg:w-auto">
+          <span className="w-1/5 mr-4 fill-white lg:hidden">
             <LogoIcon />
           </span>
           <h1 className="text-xl text-terra-white md:text-2xl lg:text-3xl">
@@ -78,12 +65,16 @@ export default function Dashboard() {
           </h1>
         </div>
 
-        <div className="w-full flex flex-col items-center space-y-2 ">
-          <section className="bg-terra flex flex-col items-center space-y-2 w-full lg:w-full md:w-full p-4 rounded-lg lg:col-span-2">
-            <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
+        <div className="w-full flex flex-col items-center space-y-4 ">
+          <section className="bg-terra-white w-full flex flex-col items-start space-y-2 border border-terra p-4 rounded-lg lg:w-full md:w-full lg:col-span-2">
+            <h1 className="text-terra-black text-center text-xl md:text-2xl lg:text-2xl">
               Map Selection
             </h1>
-            <div className="w-full h-1/4">
+            <p className="text-gray-500 text-lg">
+              Click any of the markers to get the analysis of the selected area
+            </p>
+
+            <div className="bg-terra-white w-full h-1/4 p-3 border rounded-md">
               <MapContainer
                 className="h-[300px] w-full"
                 center={[mapLocation.lat, mapLocation.lng]}
@@ -112,156 +103,17 @@ export default function Dashboard() {
             </div>
           </section>
 
-          <section className="h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
-            <div className="w-full h-[25%]">
-              <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
-                Wind Speed{" "}
-                <span className="text-sm">
-                  {locationAddress && `at (${locationAddress})`}
-                </span>
-              </h1>
-
-              <p className="text-terra-white mb-2">
-                Wind speed plays a vtal role in pollination and soil erosion and
-                irrigation efficiency
-              </p>
-            </div>
-
-            <div className="h-3/4 mt-3">
-              <WindSpeedGraph lat={mapLocation.lat} lng={mapLocation.lng} />
-            </div>
-          </section>
-
-          <section className="h-[95vh] bg-terra w-full lg:w-full md:w-full p-4 rounded-lg shadow-lg">
-            <div className="w-full h-[25%]">
-              <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
-                Soil Skin Temperature{" "}
-                <span className="text-sm">
-                  {locationAddress && `at (${locationAddress})`}
-                </span>
-              </h1>
-
-              <p className="text-terra-white mb-2">
-                It plays a role in seed germination, heat stress in crops and
-                soil microbial activity
-              </p>
-            </div>
-            <div className="h-3/4 mt-3">
-              <SoilTempGraph lat={mapLocation.lat} lng={mapLocation.lng} />
-            </div>
-          </section>
-
-          <section className="h-[100vh] lg:h-[95vh] w-full lg:w-full md:w-full bg-terra p-4 rounded-lg shadow-lg">
-            <div className="w-full h-[20%]">
-              <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
-                Humidity and Precipitation{" "}
-                <span className="text-sm">
-                  {locationAddress && `at (${locationAddress})`}
-                </span>
-              </h1>
-
-              <p className="text-terra-white mb-2">
-                They play a vital role in prediciting rainfall, plant growth and
-                soil moisture retention
-              </p>
-
-              <div className="flex flex-wrap items-center space-y-1 space-x-2">
-                <span
-                  className={`${
-                    humidityParam === "specificHumidity" &&
-                    "bg-terra-accent-bg text-terra font-bold"
-                  } w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
-                  onClick={() => setHumidityParam("specificHumidity")}
-                >
-                  Specific Humidity
-                </span>
-
-                <span
-                  className={`${
-                    humidityParam === "relativeHumidity" &&
-                    "bg-terra-accent-bg text-terra font-bold"
-                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
-                  onClick={() => setHumidityParam("relativeHumidity")}
-                >
-                  Relative Humidity
-                </span>
-
-                <span
-                  className={`${
-                    humidityParam === "averagePrecipitation" &&
-                    "bg-terra-accent-bg text-terra font-bold"
-                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
-                  onClick={() => setHumidityParam("averagePrecipitation")}
-                >
-                  Average Precipitation
-                </span>
-
-                <span
-                  className={`${
-                    humidityParam === "sumAveragePrecipitation" &&
-                    "bg-terra-accent-bg text-terra font-bold"
-                  }  w-[45%] lg:w-[23%] p-2 bg-terra-white rounded-lg text-sm text-center cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
-                  onClick={() => setHumidityParam("sumAveragePrecipitation")}
-                >
-                  Sum Average Precipitation
-                </span>
-              </div>
-            </div>
-
-            <div className="h-[70%] mt-[60px]">
-              <HumidityGraph
-                param={humidityParam}
+          <div className="w-full grid grid-cols-1 gap-y-2 lg:grid-cols-2 lg:gap-2">
+            {soilFactors.map((soilFactor, id) => (
+              <FactorContainer
+                key={id}
+                location={locationAddress}
                 lat={mapLocation.lat}
                 lng={mapLocation.lng}
+                {...soilFactor}
               />
-            </div>
-          </section>
-
-          <section className="h-[95vh] w-full lg:w-full mb-[80px] lg:mb-auto md:w-full bg-terra p-4 rounded-lg shadow-lg">
-            <div className="h-[25%]">
-              <h1 className="text-terra-white text-center font-blade text-xl md:text-2xl lg:text-2xl">
-                Soil Wetness{" "}
-                <span className="text-sm">
-                  {locationAddress && `at (${locationAddress})`}
-                </span>
-              </h1>
-
-              <p className="text-terra-white mb-2">
-                Soil Wetness helps in plant growth and water absorption and
-                could be a indication of constant rainfall
-              </p>
-
-              <div className="flex items-center space-x-2">
-                <span
-                  className={`${
-                    wetnessParam === "topSoil" &&
-                    "bg-accent-terra-bg text-terra font-bold"
-                  } p-2 bg-terra-white rounded-lg text-sm cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
-                  onClick={() => setWetnessParam("topSoil")}
-                >
-                  Top Soil
-                </span>
-
-                <span
-                  className={`${
-                    wetnessParam === "rootSoil" &&
-                    "bg-accent-terra-bg text-terra font-bold"
-                  } p-2 bg-terra-white rounded-lg text-sm cursor-pointer active:bg-terra-accent-bg text-terra active:text-terra lg:hover:bg-terra-accent-bg lg:hover:text-terra`}
-                  onClick={() => setWetnessParam("rootSoil")}
-                >
-                  Root Soil
-                </span>
-              </div>
-            </div>
-
-            <div className="h-3/4 mt-3">
-              <SoilWetnessGraph
-                param={wetnessParam}
-                lat={mapLocation.lat}
-                lng={mapLocation.lng}
-              />
-            </div>
-          </section>
+            ))}
+          </div>
         </div>
       </>
     </AppLayout>

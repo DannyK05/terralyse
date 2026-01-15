@@ -1,21 +1,18 @@
 "use client";
-import { soilWetness } from "../../../utilities/data/soil-wetness";
 import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
-import { months } from "../data";
 import { Line } from "react-chartjs-2";
-import { colors } from "../../../utilities/data/chart-colors";
-import { TSoilDataTypeWithParams } from "../types";
+
+import { generateChartData } from "@/utilities/helper";
+import { soilWetness } from "../../../utilities/data/soil-wetness";
+import { months } from "../data";
+import type { TGraphProps, TSoilDataTypeWithParams } from "../types";
 
 export default function SoilWetnessGraph({
   lat = 10.25,
   lng = 10.25,
-  param = "topSoil",
-}: {
-  lat: number;
-  lng: number;
-  param?: "topSoil" | "rootSoil";
-}) {
+  param = "top-soil",
+}: TGraphProps) {
   const soilWetnessData: TSoilDataTypeWithParams = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
@@ -32,40 +29,10 @@ export default function SoilWetnessGraph({
     }
   });
 
-  const getYearColor = (YEAR: number) => {
-    const yearColor = colors.find((color) => color.year === YEAR);
-    return yearColor?.color;
-  };
-
   Chart.register(CategoryScale);
   const chartData = {
     labels: months,
-    datasets: soilWetnessData.map(
-      ({
-        YEAR,
-        JAN,
-        FEB,
-        MAR,
-        APR,
-        MAY,
-        JUN,
-        JUL,
-        AUG,
-        SEP,
-        OCT,
-        NOV,
-        DEC,
-      }) => {
-        return {
-          label: `${YEAR}`,
-          data: [JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC],
-          borderColor: getYearColor(YEAR),
-          backgroundColor: getYearColor(YEAR),
-          borderWidth: 3,
-          fill: false,
-        };
-      }
-    ),
+    datasets: generateChartData(soilWetnessData),
   };
 
   const options = {
@@ -75,7 +42,7 @@ export default function SoilWetnessGraph({
         title: {
           display: true,
           text: `${
-            param === "topSoil"
+            param === "top-soil"
               ? "Surface Soil Wetness"
               : "Root Soil Wetness (10m)"
           }`, // Y-axis label
@@ -92,9 +59,5 @@ export default function SoilWetnessGraph({
     responsive: true,
   };
 
-  return (
-    <div className="bg-terra-white p-2 h-full">
-      <Line data={chartData} options={options} />
-    </div>
-  );
+  return <Line data={chartData} options={options} />;
 }

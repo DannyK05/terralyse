@@ -1,25 +1,18 @@
 "use client";
-import { humidity } from "../../../utilities/data/humidity";
 import { Chart } from "chart.js";
 import { CategoryScale } from "chart.js";
 import { months } from "../data";
 import { Line } from "react-chartjs-2";
-import { colors } from "../../../utilities/data/chart-colors";
-import { TSoilDataTypeWithParams } from "../types";
+
+import { generateChartData } from "@/utilities/helper";
+import { humidity } from "../../../utilities/data/humidity";
+import type { TGraphProps, TSoilDataTypeWithParams } from "../types";
 
 export default function HumidityGraph({
   lat = 10.25,
   lng = 10.25,
-  param = "specificHumidity",
-}: {
-  lat: number;
-  lng: number;
-  param:
-    | "specificHumidity"
-    | "relativeHumidity"
-    | "averagePrecipitation"
-    | "sumAveragePrecipitation";
-}) {
+  param = "specific-humidity",
+}: TGraphProps) {
   const humidityData: TSoilDataTypeWithParams = []; //Wind speed for the giving location over the years
   const years: number[] = [];
   const latitude = lat;
@@ -38,54 +31,23 @@ export default function HumidityGraph({
 
   const getYAxisName = () => {
     switch (param) {
-      case "specificHumidity":
+      case "specific-humidity":
         return "Specific Humidity";
-        break;
-      case "relativeHumidity":
+      case "relative-humidity":
         return "Relative Humidity";
-      case "averagePrecipitation":
+      case "average-precipitation":
         return "Average Precipitation";
-      case "sumAveragePrecipitation":
+      case "sum-average-precipitation":
         return "Sum Average Precipitation";
       default:
         break;
     }
   };
 
-  const getYearColor = (YEAR: number) => {
-    const yearColor = colors.find((color) => color.year === YEAR);
-    return yearColor?.color;
-  };
-
   Chart.register(CategoryScale);
   const chartData = {
     labels: months,
-    datasets: humidityData.map(
-      ({
-        YEAR,
-        JAN,
-        FEB,
-        MAR,
-        APR,
-        MAY,
-        JUN,
-        JUL,
-        AUG,
-        SEP,
-        OCT,
-        NOV,
-        DEC,
-      }) => {
-        return {
-          label: `${YEAR}`,
-          data: [JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC],
-          borderColor: getYearColor(YEAR),
-          backgroundColor: getYearColor(YEAR),
-          borderWidth: 3,
-          fill: false,
-        };
-      }
-    ),
+    datasets: generateChartData(humidityData),
   };
 
   const options = {
@@ -108,9 +70,5 @@ export default function HumidityGraph({
     responsive: true,
   };
 
-  return (
-    <div className="bg-terra-white p-2 h-full">
-      <Line data={chartData} options={options} />
-    </div>
-  );
+  return <Line data={chartData} options={options} />;
 }

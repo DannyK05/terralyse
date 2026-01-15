@@ -73,8 +73,6 @@ export default function Map() {
                         url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
                       }}
                     />
-                    
-            
                   
               )} */}
         </MapContainer>
