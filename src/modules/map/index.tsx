@@ -19,7 +19,12 @@ export default function Map() {
   };
   return (
     <AppLayout activePage="map">
-      <section className="flex flex-col items-center space-y-5 mb-[80px] ">
+      <section className="h-full flex flex-col items-center justify-center">
+        <h1 className="text-terra">This page has been discontinued.</h1>
+        <p className="text-black text-sm">Something new is coming</p>
+      </section>
+
+      {/* <section className="flex flex-col items-center space-y-5 mb-[80px] ">
         <div className="w-full flex items-center justify-between lg:block bg-terra text-center p-4 mb-4 shadow-lg">
           <span className="fill-white lg:hidden w-1/5">
             <LogoIcon />
@@ -43,7 +48,7 @@ export default function Map() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {/* {prediction.length !== 0 &&
+          {prediction.length !== 0 &&
               prediction.map(
                 (coord) =>
                   coord.drought > 50 && (
@@ -74,9 +79,9 @@ export default function Map() {
                       }}
                     />
                   
-              )} */}
+              )}
         </MapContainer>
-      </section>
+      </section> */}
     </AppLayout>
   );
 }
