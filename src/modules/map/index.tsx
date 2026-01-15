@@ -1,22 +1,6 @@
 "use client";
-import "leaflet/dist/leaflet.css";
 import AppLayout from "@/layout/layout";
-import LogoIcon from "@/app/assets/svgs/LogoIcon";
-// import { getPrediction, prediction } from "@/utilities/hooks/Prediction";
-// import Flood from "../../app/assets/svgs/flood.svg";
-// import Drought from "../../app/assets/svgs/drought.svg";
-// import Plant from "../../app/assets/svgs/plant.svg";
-import { MapContainer, TileLayer } from "react-leaflet";
 export default function Map() {
-  const center = {
-    lat: 10.25,
-    lng: 10.25,
-  };
-
-  const getResult = () => {
-    // getPrediction();
-    // console.log(prediction);
-  };
   return (
     <AppLayout activePage="map">
       <section className="h-full flex flex-col items-center justify-center">
