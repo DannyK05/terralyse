@@ -31,7 +31,7 @@ export default function FactorsContainer({
     useState<THumidityParams>("specific-humidity");
 
   return (
-    <section className="h-[100vh] w-full flex items-start space-y-2 flex-col p-4 rounded-lg bg-terra-white border border-terra shadow-lg md:w-full lg:w-full lg:h-[62vh]">
+    <section className="h-[100vh] w-full flex items-start space-y-2 flex-col p-4 rounded-lg bg-terra-white border border-terra shadow-lg md:w-full lg:w-full lg:h-[80vh]">
       <div className="flex flex-col items-start space-y-1">
         <h1 className="text-terra-black text-center text-xl md:text-2xl lg:text-2xl">
           {name}

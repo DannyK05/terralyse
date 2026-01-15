@@ -15,7 +15,10 @@ export default function AppLayout({
 }: Readonly<{ children: React.ReactNode; activePage: "dashboard" | "map" }>) {
   const router = useRouter();
   return (
-    <div className="h-screen flex items-center flex-col-reverse px-1 lg:flex-row lg:space-x-4">
+    <div
+      className="h-screen flex items-center flex-col-reverse px-1 lg:flex-row lg:space-x-4 lg:px-0
+    "
+    >
       <nav className="bg-terra w-full fixed bottom-0 left-0 z-10 flex items-center border-t-2 border-terra lg:static lg:w-1/5 lg:h-full lg:top-0 lg:flex-col lg:border-none">
         <span
           onClick={() => router.push("/")}
@@ -45,7 +48,7 @@ export default function AppLayout({
           ))}
         </ul>
 
-        <p className="hidden absolute bottom-0 text-terra-white mr-4 lg:block">
+        <p className="hidden absolute bottom-0 text-terra-white mr-4 p-1 lg:block">
           Designed and built with 💖 by{" "}
           <a
             className="my_github_link"
