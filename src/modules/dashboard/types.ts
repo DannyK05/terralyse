@@ -57,3 +57,5 @@ export type TSoilFactor = {
   hasParams?: boolean;
   Graph: React.ComponentType<TGraphProps>;
 };
+
+export type TChartData = Record<string, number | string>

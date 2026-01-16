@@ -28,25 +28,25 @@ export default function HumidityGraph({
     return Array.from(filteredYears);
   }, [humidityData]);
 
-  const getYAxisLabel = () => {
-    switch (param) {
-      case "specific-humidity":
-        return "Specific Humidity";
-      case "relative-humidity":
-        return "Relative Humidity";
-      case "average-precipitation":
-        return "Average Precipitation";
-      case "sum-average-precipitation":
-        return "Sum Average Precipitation";
-      default:
-        return "Y-axis";
-    }
-  };
+  // const getYAxisLabel = () => {
+  //   switch (param) {
+  //     case "specific-humidity":
+  //       return "Specific Humidity";
+  //     case "relative-humidity":
+  //       return "Relative Humidity";
+  //     case "average-precipitation":
+  //       return "Average Precipitation";
+  //     case "sum-average-precipitation":
+  //       return "Sum Average Precipitation";
+  //     default:
+  //       return "Y-axis";
+  //   }
+  // };
 
   return (
     <CustomLineChart
       data={generateRechartData(humidityData)}
-      yLabel={getYAxisLabel()}
+      // yLabel={getYAxisLabel()}
     >
       {years.map((year, id) => (
         <Line

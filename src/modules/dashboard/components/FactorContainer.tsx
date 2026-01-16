@@ -43,7 +43,7 @@ export default function FactorsContainer({
       </div>
 
       {name === "Humidity and Precipitation" && (
-        <div className="w-full flex items-center flex-wrap mb-2 space-x-4 space-y-2">
+        <div className="w-full flex items-center flex-wrap mb-2 space-y-2 space-x-4 lg:space-y-0 lg:flex-nowrap">
           {humidityParams.map((param, id) => (
             <ParamTag
               key={id}
@@ -70,7 +70,7 @@ export default function FactorsContainer({
         </div>
       )}
 
-      <div className="bg-terra-white h-full w-full rounded-md border">
+      <div className="bg-terra-white h-full w-full rounded-md">
         <Graph
           param={
             name === "Soil Wetness"
