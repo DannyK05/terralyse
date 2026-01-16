@@ -1,10 +1,9 @@
 "use client";
-import { Chart } from "chart.js";
-import { CategoryScale } from "chart.js";
-import { months } from "../data";
-import { Line } from "react-chartjs-2";
+import { useMemo } from "react";
+import { Line } from "recharts";
 
-import { generateChartData } from "@/utilities/helper";
+import CustomLineChart from "@/components/CustomLineChart";
+import { generateRechartData, getYearColor } from "@/utilities/helper";
 import { humidity } from "../../../utilities/data/humidity";
 import type { TGraphProps, TSoilDataTypeWithParams } from "../types";
 
@@ -13,23 +12,23 @@ export default function HumidityGraph({
   lng = 10.25,
   param = "specific-humidity",
 }: TGraphProps) {
-  const humidityData: TSoilDataTypeWithParams = []; //Wind speed for the giving location over the years
-  const years: number[] = [];
   const latitude = lat;
   const longitude = lng;
+  const humidityData: TSoilDataTypeWithParams = useMemo(
+    () =>
+      humidity.filter(
+        ({ LAT, LON, PARAMETER }) =>
+          LAT === latitude && LON === longitude && PARAMETER === param
+      ),
+    [param, latitude, longitude]
+  ); //Humidity for the giving location over the years
 
-  humidity.forEach((speed) => {
-    years.push(speed.YEAR);
-    if (
-      speed.LAT === latitude &&
-      speed.LON === longitude &&
-      speed.PARAMETER === param
-    ) {
-      humidityData.push(speed);
-    }
-  });
+  const years = useMemo(() => {
+    const filteredYears = new Set(humidityData.map((d) => d.YEAR));
+    return Array.from(filteredYears);
+  }, [humidityData]);
 
-  const getYAxisName = () => {
+  const getYAxisLabel = () => {
     switch (param) {
       case "specific-humidity":
         return "Specific Humidity";
@@ -40,35 +39,24 @@ export default function HumidityGraph({
       case "sum-average-precipitation":
         return "Sum Average Precipitation";
       default:
-        break;
+        return "Y-axis";
     }
   };
 
-  Chart.register(CategoryScale);
-  const chartData = {
-    labels: months,
-    datasets: generateChartData(humidityData),
-  };
-
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: getYAxisName(), // Y-axis label
-        },
-      },
-      x: {
-        title: {
-          display: true,
-          text: "Month", // X-axis label
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-  };
-
-  return <Line data={chartData} options={options} />;
+  return (
+    <CustomLineChart
+      data={generateRechartData(humidityData)}
+      yLabel={getYAxisLabel()}
+    >
+      {years.map((year, id) => (
+        <Line
+          key={id}
+          type="monotone"
+          dataKey={year.toString()}
+          stroke={getYearColor(year)}
+          activeDot={{ r: 8 }}
+        />
+      ))}
+    </CustomLineChart>
+  );
 }

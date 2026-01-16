@@ -1,54 +1,40 @@
 "use client";
-import { soilTemp } from "../../../utilities/data/soil-temp";
-import { Chart } from "chart.js";
-import { CategoryScale } from "chart.js";
-import { months } from "../data";
-import { Line } from "react-chartjs-2";
+import { useMemo } from "react";
+import { Line } from "recharts";
 
-import { generateChartData } from "@/utilities/helper";
+import CustomLineChart from "@/components/CustomLineChart";
+import { generateRechartData, getYearColor } from "@/utilities/helper";
+import { soilTemp } from "@/utilities/data/soil-temp";
 import type { TGraphProps, TSoilDataType } from "../types";
 
 export default function SoilTempGraph({
   lat = 10.25,
   lng = 10.25,
 }: TGraphProps) {
-  const soilTempData: TSoilDataType = []; //Wind speed for the given location over the years
-  const years: number[] = [];
   const latitude = lat;
   const longitude = lng;
+  const soilTempData: TSoilDataType = useMemo(
+    () =>
+      soilTemp.filter(({ LAT, LON }) => LAT === latitude && LON === longitude),
+    [latitude, longitude]
+  ); //Soil Temperature for the given location over the years
 
-  soilTemp.forEach((speed) => {
-    years.push(speed.YEAR);
-    if (speed.LAT === latitude && speed.LON === longitude) {
-      soilTempData.push(speed);
-    }
-  });
+  const years = useMemo(() => {
+    const filteredYears = new Set(soilTempData.map((d) => d.YEAR));
+    return Array.from(filteredYears);
+  }, [soilTempData]);
 
-  Chart.register(CategoryScale);
-  const chartData = {
-    labels: months,
-    datasets: generateChartData(soilTempData),
-  };
-
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: "Soil Skin Temperature (C)", // Y-axis label
-        },
-      },
-      x: {
-        title: {
-          display: true,
-          text: "Month", // X-axis label
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-  };
-
-  return <Line data={chartData} options={options} />;
+  return (
+    <CustomLineChart data={generateRechartData(soilTempData)}>
+      {years.map((year, id) => (
+        <Line
+          key={id}
+          type="monotone"
+          dataKey={year.toString()}
+          stroke={getYearColor(year)}
+          activeDot={{ r: 8 }}
+        />
+      ))}
+    </CustomLineChart>
+  );
 }

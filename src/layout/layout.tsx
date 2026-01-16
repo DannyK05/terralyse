@@ -61,7 +61,7 @@ export default function AppLayout({
         </p>
       </nav>
 
-      <main className="w-full h-screen overflow-y-scroll pb-[80px] lg:p-2">
+      <main className="w-full max-h-screen overflow-y-auto pb-[80px] lg:p-2">
         {children}
       </main>
     </div>
