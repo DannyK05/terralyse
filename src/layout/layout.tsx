@@ -19,7 +19,7 @@ export default function AppLayout({
       className="h-screen flex items-center flex-col-reverse px-1 lg:flex-row lg:space-x-4 lg:px-0
     "
     >
-      <nav className="bg-terra w-full fixed bottom-0 left-0 z-10 flex items-center border-t-2 border-terra lg:static lg:w-1/5 lg:h-full lg:top-0 lg:flex-col lg:border-none">
+      <nav className="bg-terra w-full fixed bottom-0 left-0 z-10 flex items-center border-t-2 border-terra lg:static lg:w-[10%] lg:h-full lg:top-0 lg:flex-col lg:border-none">
         <span
           onClick={() => router.push("/")}
           className="hidden w-1/2 fill-terra-accent-bg mb-[80px] py-5 cursor-pointer lg:block lg:hover:fill-terra-white"

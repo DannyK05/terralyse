@@ -61,7 +61,7 @@ export const soilFactors: TSoilFactor[] = [
   {
     name: "Soil Wetness",
     description:
-      "This helps in plant growth and water absorption and could be a indication of constant rainfall",
+      "This helps in plant growth and could be a indication of constant rainfall",
     Graph: SoilWetnessGraph,
     hasParams: true,
   },

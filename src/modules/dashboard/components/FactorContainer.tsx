@@ -76,8 +76,8 @@ export default function FactorsContainer({
             name === "Soil Wetness"
               ? wetnessParam
               : name === "Humidity and Precipitation"
-              ? humidityParam
-              : undefined
+                ? humidityParam
+                : undefined
           }
           lat={lat}
           lng={lng}

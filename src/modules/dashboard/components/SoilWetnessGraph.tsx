@@ -6,12 +6,16 @@ import CustomLineChart from "@/components/CustomLineChart";
 import { generateRechartData, getYearColor } from "@/utilities/helper";
 import { soilWetness } from "../../../utilities/data/soil-wetness";
 import type { TGraphProps, TSoilDataTypeWithParams } from "../types";
+import useHandleYearFilter from "@/utilities/hooks/useHandleYearFilter";
 
 export default function SoilWetnessGraph({
   lat = 10.25,
   lng = 10.25,
   param = "top-soil",
 }: TGraphProps) {
+  const { selectedYears, addSelectedYear, removeSelectedYear } =
+    useHandleYearFilter();
+
   const latitude = lat;
   const longitude = lng;
 
@@ -19,9 +23,9 @@ export default function SoilWetnessGraph({
     () =>
       soilWetness.filter(
         ({ LAT, LON, PARAMETER }) =>
-          LAT === latitude && LON === longitude && PARAMETER === param
+          LAT === latitude && LON === longitude && PARAMETER === param,
       ),
-    [param, latitude, longitude]
+    [param, latitude, longitude],
   ); //Soil Wetness for the giving location over the years
 
   const years = useMemo(() => {
@@ -30,16 +34,31 @@ export default function SoilWetnessGraph({
   }, [soilWetnessData]);
 
   return (
-    <CustomLineChart data={generateRechartData(soilWetnessData)}>
-      {years.map((year, id) => (
-        <Line
-          key={id}
-          type="monotone"
-          dataKey={year.toString()}
-          stroke={getYearColor(year)}
-          activeDot={{ r: 8 }}
-        />
-      ))}
+    <CustomLineChart
+      selectedYears={selectedYears}
+      addSelectedYear={addSelectedYear}
+      removeSelectedYear={removeSelectedYear}
+      data={generateRechartData(soilWetnessData)}
+    >
+      {selectedYears.length !== 0
+        ? selectedYears.map((year, id) => (
+            <Line
+              key={id}
+              type="monotone"
+              dataKey={year.toString()}
+              stroke={getYearColor(year)}
+              activeDot={{ r: 5 }}
+            />
+          ))
+        : years.map((year, id) => (
+            <Line
+              key={id}
+              type="monotone"
+              dataKey={year.toString()}
+              stroke={getYearColor(year)}
+              activeDot={{ r: 5 }}
+            />
+          ))}
     </CustomLineChart>
   );
 }
