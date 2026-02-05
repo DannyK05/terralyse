@@ -29,7 +29,7 @@ export default function Dashboard() {
     lng: 10.25,
   });
   const [locationAddress, setLocationAddress] = useState(
-    "Galambi, Bauchi, Bauchi State, Nigeria"
+    "Galambi, Bauchi, Bauchi State, Nigeria",
   );
   const apiKey = process.env.NEXT_PUBLIC_LOCATION_IQ_KEY;
 
@@ -42,7 +42,7 @@ export default function Dashboard() {
     try {
       const response = await fetch(
         `https://us1.locationiq.com/v1/reverse?key=${apiKey}&lat=${lat}&lon=${lon}&format=json&`,
-        options
+        options,
       );
 
       const data = await response.json();
@@ -76,7 +76,7 @@ export default function Dashboard() {
 
             <div className="bg-terra-white w-full h-1/4 p-3 border rounded-md">
               <MapContainer
-                className="h-[300px] w-full"
+                className="h-[300px] w-full z-0"
                 center={[mapLocation.lat, mapLocation.lng]}
                 zoom={13}
                 scrollWheelZoom={false}

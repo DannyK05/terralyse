@@ -60,9 +60,11 @@ const CustomLegend = ({
       {years.map((year, index) => (
         <div
           onClick={() => {
-            selectedYears.includes(year)
-              ? removeSelectedYear(year)
-              : addSelectedYear(year);
+            if (selectedYears.includes(year)) {
+              removeSelectedYear(year);
+            } else {
+              addSelectedYear(year);
+            }
           }}
           key={index}
           className="flex items-center space-x-1 border rounded-lg px-1 cursor-pointer"
