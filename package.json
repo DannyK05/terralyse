@@ -10,13 +10,14 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
-    "chart.js": "^4.4.4",
+    "@recharts/devtools": "github:recharts/devtools",
     "leaflet": "^1.9.4",
+    "lucide-react": "^0.562.0",
     "next": "14.2.14",
     "react": "^18.3.1",
-    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
-    "react-leaflet": "^4.2.1"
+    "react-leaflet": "^4.2.1",
+    "recharts": "^3.6.0"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.20",

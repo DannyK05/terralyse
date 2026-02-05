@@ -1,54 +1,60 @@
 "use client";
-import { CategoryScale } from "chart.js";
-import Chart from "chart.js/auto";
-import { Line } from "react-chartjs-2";
+import { useMemo } from "react";
+import { Line } from "recharts";
 
-import { generateChartData } from "@/utilities/helper";
+import CustomLineChart from "@/components/CustomLineChart";
+import { generateRechartData, getYearColor } from "@/utilities/helper";
 import { windSpeed } from "../../../utilities/data/wind-speed";
-import { months } from "../data";
 import type { TGraphProps, TSoilDataType } from "../types";
+import useHandleYearFilter from "@/utilities/hooks/useHandleYearFilter";
 
 export default function WindSpeedGraph({
   lat = 10.25,
   lng = 10.25,
 }: TGraphProps) {
-  const windSpeedData: TSoilDataType = []; //Wind speed for the giving location over the years
-  const years: number[] = [];
+  const { selectedYears, addSelectedYear, removeSelectedYear } =
+    useHandleYearFilter();
+
   const latitude = lat;
   const longitude = lng;
 
-  windSpeed.forEach((speed) => {
-    years.push(speed.YEAR);
-    if (speed.LAT === latitude && speed.LON === longitude) {
-      windSpeedData.push(speed);
-    }
-  });
+  const windSpeedData: TSoilDataType = useMemo(
+    () =>
+      windSpeed.filter(({ LAT, LON }) => LAT === latitude && LON === longitude),
+    [latitude, longitude],
+  ); //Wind Speed for the given location over the years
 
-  Chart.register(CategoryScale);
-  const chartData = {
-    labels: months,
-    datasets: generateChartData(windSpeedData),
-  };
+  const years = useMemo(() => {
+    const filteredYears = new Set(windSpeedData.map((d) => d.YEAR));
+    return Array.from(filteredYears);
+  }, [windSpeedData]);
 
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: "Wind Speed (m/s)", // Y-axis label
-        },
-      },
-      x: {
-        title: {
-          display: true,
-          text: "Month", // X-axis label
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-  };
-
-  return <Line data={chartData} options={options} />;
+  return (
+    <CustomLineChart
+      selectedYears={selectedYears}
+      addSelectedYear={addSelectedYear}
+      removeSelectedYear={removeSelectedYear}
+      data={generateRechartData(windSpeedData)}
+    >
+      {selectedYears.length !== 0
+        ? selectedYears.map((year, id) => (
+            <Line
+              key={id}
+              type="monotone"
+              dataKey={year.toString()}
+              stroke={getYearColor(year)}
+              activeDot={{ r: 5 }}
+            />
+          ))
+        : years.map((year, id) => (
+            <Line
+              key={id}
+              type="monotone"
+              dataKey={year.toString()}
+              stroke={getYearColor(year)}
+              activeDot={{ r: 5 }}
+            />
+          ))}
+    </CustomLineChart>
+  );
 }
